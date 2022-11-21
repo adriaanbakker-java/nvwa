@@ -1,0 +1,61 @@
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+    <S:Header>
+        <ns0:Security xmlns:ns1="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+                      xmlns:ns0="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+            <ns1:Timestamp>
+                <ns1:Created>2022-11-14T10:07:01.829+01:00</ns1:Created>
+                <ns1:Expires>2022-11-14T10:07:06.830+01:00</ns1:Expires>
+            </ns1:Timestamp>
+        </ns0:Security>
+    </S:Header>
+    <S:Body>
+        <ns12:GetClassificationTreeUpdatesResponse xmlns:ns2="http://ec.europa.eu/sanco/tracesnt/base/v4"
+                                                   xmlns:ns3="http://ec.europa.eu/sanco/tracesnt/error/v01"
+                                                   xmlns:ns4="http://ec.europa.eu/sanco/tracesnt/message/v1"
+                                                   xmlns:ns5="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+                                                   xmlns:ns6="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
+                                                   xmlns:ns7="http://ec.europa.eu/tracesnt/referencedata/certificatemodel/v1"
+                                                   xmlns:ns8="http://ec.europa.eu/tracesnt/referencedata/classificationsection/v1"
+                                                   xmlns:ns9="http://ec.europa.eu/tracesnt/referencedata/classificationtree/v1"
+                                                   xmlns:ns10="http://ec.europa.eu/tracesnt/referencedata/nodeattribute/v1"
+                                                   xmlns:ns11="http://ec.europa.eu/tracesnt/referencedata/laboratorytest/v1"
+                                                   xmlns:ns12="http://ec.europa.eu/tracesnt/referencedata/v1"
+                                                   xmlns:ns13="http://www.w3.org/2000/09/xmldsig#"
+                                                   xmlns:ns14="http://ec.europa.eu/tracesnt/body/v3"
+                                                   xmlns:ns15="urn:un:unece:uncefact:codelist:standard:ISO:ISO2AlphaLanguageCode:2006-10-27">
+            <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10000">
+                <ns9:CNCode>01</ns9:CNCode>
+                <ns9:Description languageID="nl">LEVENDE DIEREN</ns9:Description>
+                <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10000/N-10070">
+                    <ns9:CNCode>0106</ns9:CNCode>
+                    <ns9:Description languageID="nl">Andere levende dieren</ns9:Description>
+                    <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10000/N-10070/N-10608">
+                        <ns9:CNCode>010690</ns9:CNCode>
+                        <ns9:Description languageID="nl">Dieren andere dan zoogdieren, vogels, reptielen en insecten
+                        </ns9:Description>
+                        <ns9:Node allowedForSelection="true" type="nomenclature"
+                                  path="R/N-10000/N-10070/N-10608/N-11632">
+                            <ns9:CNCode>01069000</ns9:CNCode>
+                            <ns9:Description languageID="nl">Dieren andere dan zoogdieren, vogels, reptielen en
+                                insecten
+                            </ns9:Description>
+                        </ns9:Node>
+                    </ns9:Node>
+                    <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10000/N-10070/N-10430">
+                        <ns9:Description languageID="nl">insecten</ns9:Description>
+                        <ns9:Node allowedForSelection="false" type="nomenclature"
+                                  path="R/N-10000/N-10070/N-10430/N-10607">
+                            <ns9:CNCode>010649</ns9:CNCode>
+                            <ns9:Description languageID="nl">andere</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature"
+                                      path="R/N-10000/N-10070/N-10430/N-10607/N-11631">
+                                <ns9:CNCode>01064900</ns9:CNCode>
+                                <ns9:Description languageID="nl">andere</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                    </ns9:Node>
+                </ns9:Node>
+            </ns9:Node>
+        </ns12:GetClassificationTreeUpdatesResponse>
+    </S:Body>
+</S:Envelope>

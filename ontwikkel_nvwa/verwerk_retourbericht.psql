@@ -5,34 +5,41 @@ declare
     v_response xmltype;
     v_commodities xmltype;
 
-  v_ns varchar(400 char) :=
-  'xmlns:ns10="http://ec.europa.eu/tracesnt/referencedata/nodeattribute/v1"
-  xmlns:ns9="http://ec.europa.eu/tracesnt/referencedata/classificationtree/v1"';
-   CURSOR c_rqt(i_xml xmltype, i_ns VARCHAR2)
-    IS
-      SELECT extract(VALUE(rqt), '/ns9:Node/ns9:CNCode/text()', i_ns).getStringVal() gn_code
-             ,      extract(VALUE(rqt), '/ns9:Node/ns9:Description/text()', i_ns).getStringVal() gn_code_meaning
-      FROM TABLE( xmlsequence(i_xml)) rqt;
-begin
+  v_ns_commodities varchar(400 char) :=
+  'xmlns:ns10="http://ec.europa.eu/tracesnt/referencedata/nodeattribute/v1" xmlns:ns9="http://ec.europa.eu/tracesnt/referencedata/classificationtree/v1"';
 
-  select
-    vgc_xml.extractxml(xmltype(clobwaarde),
-      '//ns1:GetClassificationTreeUpdatesResponse', 'xmlns:ns1="http://ec.europa.eu/tracesnt/referencedata/v1"')
+  v_ns varchar(400 char) :=
+  'xmlns:ns10="http://ec.europa.eu/tracesnt/referencedata/nodeattribute/v1" xmlns:ns9="http://ec.europa.eu/tracesnt/referencedata/classificationtree/v1"';
+   cursor c_rqt(i_xml xmltype, i_ns varchar2)
+    is
+      select extract(value(rqt), '/ns9:Node/ns9:CNCode/text()', i_ns).getStringVal() gn_code
+             ,      extract(value(rqt), '/ns9:Node/ns9:Description/text()', i_ns).getStringVal() gn_code_meaning
+      from table( xmlsequence(i_xml)) rqt;
+begin
+  delete from adriaan_log3 where id >
+    (select id from adriaan_log3 where logmsg = 'antw_update');
+
+   select
+        vgc_xml.extractxml(xmltype(clobwaarde),
+          '//ns12:GetClassificationTreeUpdatesResponse',
+          'xmlns:ns12="http://ec.europa.eu/tracesnt/referencedata/v1"')
    into v_response
-   from adriaan_log
+   from adriaan_log3
    where logmsg ='antw_update';
 
-    v_commodities       :=      vgc_xml.extractxml(v_response, '//ns9:Node', v_ns);
---    insert into  adriaan_log ( logmsg, clobwaarde)
---    values   ('v_commcoodities', v_commodities.getClobval());
+   insert into adriaan_log3( logmsg, clobwaarde) values ('v_response', v_response.getClobval());
+   v_commodities := vgc_xml.extractxml( v_response, '//ns9:Node', v_ns_commodities);
 
-        FOR r_rqt IN c_rqt(v_commodities, v_ns)
+   insert into  adriaan_log3 ( logmsg, clobwaarde)
+   values   ('v_commodities', v_commodities.getClobval());
+
+   FOR r_rqt IN c_rqt(v_commodities, v_ns)
     LOOP
       DECLARE
         v_tge vgc_tnt_gn_codes%ROWTYPE;
       BEGIN
         v_tge.gn_code          := r_rqt.gn_code;
-        insert into adriaan_log(logmsg) values (nvl(r_rqt.gn_code, 'null'));
+        insert into adriaan_log3(logmsg) values (nvl(r_rqt.gn_code, 'null'));
       END;
     END LOOP;
 end;
