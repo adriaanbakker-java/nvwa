@@ -1,0 +1,711 @@
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+    <S:Header>
+        <ns0:Security xmlns:ns1="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:ns0="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+            <ns1:Timestamp>
+                <ns1:Created>2022-11-10T11:55:53.270+01:00</ns1:Created>
+                <ns1:Expires>2022-11-10T11:55:58.270+01:00</ns1:Expires>
+            </ns1:Timestamp>
+        </ns0:Security>
+    </S:Header>
+    <S:Body>
+        <ns12:GetClassificationTreeUpdatesResponse
+                xmlns:ns2="http://ec.europa.eu/sanco/tracesnt/base/v4" xmlns:ns3="http://ec.europa.eu/sanco/tracesnt/error/v01" xmlns:ns4="http://ec.europa.eu/sanco/tracesnt/message/v1" xmlns:ns5="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:ns6="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:ns7="http://ec.europa.eu/tracesnt/referencedata/certificatemodel/v1" xmlns:ns8="http://ec.europa.eu/tracesnt/referencedata/classificationsection/v1" xmlns:ns9="http://ec.europa.eu/tracesnt/referencedata/classificationtree/v1" xmlns:ns10="http://ec.europa.eu/tracesnt/referencedata/nodeattribute/v1" xmlns:ns11="http://ec.europa.eu/tracesnt/referencedata/laboratorytest/v1" xmlns:ns12="http://ec.europa.eu/tracesnt/referencedata/v1" xmlns:ns13="http://www.w3.org/2000/09/xmldsig#" xmlns:ns14="http://ec.europa.eu/tracesnt/body/v3" xmlns:ns15="urn:un:unece:uncefact:codelist:standard:ISO:ISO2AlphaLanguageCode:2006-10-27">
+            <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10000">
+                <ns9:CNCode>01</ns9:CNCode>
+                <ns9:Description languageID="nl">LEVENDE DIEREN</ns9:Description>
+                <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10000/N-10065">
+                    <ns9:CNCode>0101</ns9:CNCode>
+                    <ns9:Description languageID="nl">Levende paarden, ezels, muildieren en muilezels</ns9:Description>
+                </ns9:Node>
+                <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10000/N-10066">
+                    <ns9:CNCode>0102</ns9:CNCode>
+                    <ns9:Description languageID="nl">Levende runderen</ns9:Description>
+                </ns9:Node>
+                <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10000/N-10067">
+                    <ns9:CNCode>0103</ns9:CNCode>
+                    <ns9:Description languageID="nl">Levende varkens</ns9:Description>
+                </ns9:Node>
+                <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10000/N-10068">
+                    <ns9:CNCode>0104</ns9:CNCode>
+                    <ns9:Description languageID="nl">Levende schapen en geiten</ns9:Description>
+                    <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10000/N-10068/N-10584">
+                        <ns9:CNCode>010410</ns9:CNCode>
+                        <ns9:Description languageID="nl">schapen</ns9:Description>
+                    </ns9:Node>
+                    <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10000/N-10068/N-10585">
+                        <ns9:CNCode>010420</ns9:CNCode>
+                        <ns9:Description languageID="nl">geiten</ns9:Description>
+                    </ns9:Node>
+                </ns9:Node>
+                <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10000/N-10069">
+                    <ns9:CNCode>0105</ns9:CNCode>
+                    <ns9:Description languageID="nl">Levend pluimvee (hanen, kippen, eenden, ganzen, kalkoenen en parelhoenders)</ns9:Description>
+                    <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10000/N-10069/N-10427">
+                        <ns9:Description languageID="nl">met een gewicht van meer dan 185 g:</ns9:Description>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10000/N-10069/N-10427/N-10594">
+                            <ns9:CNCode>010594</ns9:CNCode>
+                            <ns9:Description languageID="nl">hanen en kippen</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10000/N-10069/N-10427/N-10594/N-11610">
+                                <ns9:CNCode>01059400</ns9:CNCode>
+                                <ns9:Description languageID="nl">hanen en kippen</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10000/N-10069/N-10427/N-10595">
+                            <ns9:CNCode>010599</ns9:CNCode>
+                            <ns9:Description languageID="nl">ander</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10000/N-10069/N-10427/N-10595/N-11611">
+                                <ns9:CNCode>01059910</ns9:CNCode>
+                                <ns9:Description languageID="nl">eenden</ns9:Description>
+                            </ns9:Node>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10000/N-10069/N-10427/N-10595/N-11612">
+                                <ns9:CNCode>01059920</ns9:CNCode>
+                                <ns9:Description languageID="nl">ganzen</ns9:Description>
+                            </ns9:Node>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10000/N-10069/N-10427/N-10595/N-11613">
+                                <ns9:CNCode>01059930</ns9:CNCode>
+                                <ns9:Description languageID="nl">kalkoenen</ns9:Description>
+                            </ns9:Node>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10000/N-10069/N-10427/N-10595/N-11614">
+                                <ns9:CNCode>01059950</ns9:CNCode>
+                                <ns9:Description languageID="nl">parelhoenders</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                    </ns9:Node>
+                    <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10000/N-10069/N-10426">
+                        <ns9:Description languageID="nl">met een gewicht van niet meer dan 185 g:</ns9:Description>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10000/N-10069/N-10426/N-10586">
+                            <ns9:CNCode>010511</ns9:CNCode>
+                            <ns9:Description languageID="nl">hanen en kippen</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10000/N-10069/N-10426/N-10586/N-11600">
+                                <ns9:CNCode>01051111</ns9:CNCode>
+                                <ns9:Description languageID="nl">Met een gewicht van niet meer dan 185 g: Hanen en kippen: Vrouwelijke selectie- en vermeerderingskuikens: Legrassen</ns9:Description>
+                            </ns9:Node>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10000/N-10069/N-10426/N-10586/N-11601">
+                                <ns9:CNCode>01051119</ns9:CNCode>
+                                <ns9:Description languageID="nl">Met een gewicht van niet meer dan 185 g: Hanen en kippen: Andere, Vrouwelijke selectie- en vermeerderingskuikens: Geen legrassen</ns9:Description>
+                            </ns9:Node>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10000/N-10069/N-10426/N-10586/N-11602">
+                                <ns9:CNCode>01051191</ns9:CNCode>
+                                <ns9:Description languageID="nl">Met een gewicht van niet meer dan 185 g: Hanen en kippen: Geen vrouwelijke selectie- en vermeerderingskuikens: Legrassen</ns9:Description>
+                            </ns9:Node>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10000/N-10069/N-10426/N-10586/N-11603">
+                                <ns9:CNCode>01051199</ns9:CNCode>
+                                <ns9:Description languageID="nl">Met een gewicht van niet meer dan 185 g: Hanen en kippen: Geen vrouwelijke selectie- en vermeerderingskuikens: Geen legrassen</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10000/N-10069/N-10426/N-10587">
+                            <ns9:CNCode>010512</ns9:CNCode>
+                            <ns9:Description languageID="nl">kalkoenen</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10000/N-10069/N-10426/N-10587/N-11604">
+                                <ns9:CNCode>01051200</ns9:CNCode>
+                                <ns9:Description languageID="nl">kalkoenen</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10000/N-10069/N-10426/N-10588">
+                            <ns9:CNCode>010513</ns9:CNCode>
+                            <ns9:Description languageID="nl">eenden</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10000/N-10069/N-10426/N-10588/N-11605">
+                                <ns9:CNCode>01051300</ns9:CNCode>
+                                <ns9:Description languageID="nl">eenden</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10000/N-10069/N-10426/N-10589">
+                            <ns9:CNCode>010514</ns9:CNCode>
+                            <ns9:Description languageID="nl">ganzen</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10000/N-10069/N-10426/N-10589/N-11606">
+                                <ns9:CNCode>01051400</ns9:CNCode>
+                                <ns9:Description languageID="nl">ganzen</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10000/N-10069/N-10426/N-10590">
+                            <ns9:CNCode>010515</ns9:CNCode>
+                            <ns9:Description languageID="nl">parelhoenders</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10000/N-10069/N-10426/N-10590/N-11607">
+                                <ns9:CNCode>01051500</ns9:CNCode>
+                                <ns9:Description languageID="nl">parelhoenders</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                    </ns9:Node>
+                </ns9:Node>
+                <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10000/N-10070">
+                    <ns9:CNCode>0106</ns9:CNCode>
+                    <ns9:Description languageID="nl">Andere levende dieren</ns9:Description>
+                    <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10000/N-10070/N-10601">
+                        <ns9:CNCode>010620</ns9:CNCode>
+                        <ns9:Description languageID="nl">reptielen (slangen en zeeschildpadden daaronder begrepen)</ns9:Description>
+                        <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10000/N-10070/N-10601/N-11623">
+                            <ns9:CNCode>01062000</ns9:CNCode>
+                            <ns9:Description languageID="nl">Reptielen (inclusief slangen en schildpadden)</ns9:Description>
+                        </ns9:Node>
+                    </ns9:Node>
+                    <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10000/N-10070/N-10608">
+                        <ns9:CNCode>010690</ns9:CNCode>
+                        <ns9:Description languageID="nl">Dieren andere dan zoogdieren, vogels, reptielen en insecten</ns9:Description>
+                        <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10000/N-10070/N-10608/N-11632">
+                            <ns9:CNCode>01069000</ns9:CNCode>
+                            <ns9:Description languageID="nl">Dieren andere dan zoogdieren, vogels, reptielen en insecten</ns9:Description>
+                        </ns9:Node>
+                    </ns9:Node>
+                    <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10000/N-10070/N-10430">
+                        <ns9:Description languageID="nl">insecten</ns9:Description>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10000/N-10070/N-10430/N-10606">
+                            <ns9:CNCode>010641</ns9:CNCode>
+                            <ns9:Description languageID="nl">bijen</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10000/N-10070/N-10430/N-10606/N-11630">
+                                <ns9:CNCode>01064100</ns9:CNCode>
+                                <ns9:Description languageID="nl">bijen</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10000/N-10070/N-10430/N-10607">
+                            <ns9:CNCode>010649</ns9:CNCode>
+                            <ns9:Description languageID="nl">andere</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10000/N-10070/N-10430/N-10607/N-11631">
+                                <ns9:CNCode>01064900</ns9:CNCode>
+                                <ns9:Description languageID="nl">andere</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                    </ns9:Node>
+                    <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10000/N-10070/N-10429">
+                        <ns9:Description languageID="nl">vogels:</ns9:Description>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10000/N-10070/N-10429/N-10602">
+                            <ns9:CNCode>010631</ns9:CNCode>
+                            <ns9:Description languageID="nl">roofvogels</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10000/N-10070/N-10429/N-10602/N-11624">
+                                <ns9:CNCode>01063100</ns9:CNCode>
+                                <ns9:Description languageID="nl">roofvogels</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10000/N-10070/N-10429/N-10603">
+                            <ns9:CNCode>010632</ns9:CNCode>
+                            <ns9:Description languageID="nl">Psittaciformes (papegaaiachtigen) (papegaaien, parkieten, ara's en kaketoes daaronder begrepen)</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10000/N-10070/N-10429/N-10603/N-11625">
+                                <ns9:CNCode>01063200</ns9:CNCode>
+                                <ns9:Description languageID="nl">Psittaciformes (papegaaiachtigen) (papegaaien, parkieten, ara's en kaketoes daaronder begrepen)</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10000/N-10070/N-10429/N-10604">
+                            <ns9:CNCode>010633</ns9:CNCode>
+                            <ns9:Description languageID="nl">struisvogels; emoes (Dromaius novaehollandiae)</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10000/N-10070/N-10429/N-10604/N-11626">
+                                <ns9:CNCode>01063300</ns9:CNCode>
+                                <ns9:Description languageID="nl">struisvogels; emoes (Dromaius novaehollandiae)</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10000/N-10070/N-10429/N-10605">
+                            <ns9:CNCode>010639</ns9:CNCode>
+                            <ns9:Description languageID="nl">andere</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10000/N-10070/N-10429/N-10605/N-11627">
+                                <ns9:CNCode>01063910</ns9:CNCode>
+                                <ns9:Description languageID="nl">duiven</ns9:Description>
+                            </ns9:Node>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10000/N-10070/N-10429/N-10605/N-11628">
+                                <ns9:CNCode>01063980</ns9:CNCode>
+                                <ns9:Description languageID="nl">andere dan  0105, 010631, 010632 oder 01063910</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                    </ns9:Node>
+                    <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10000/N-10070/N-10428">
+                        <ns9:Description languageID="nl">zoogdieren:</ns9:Description>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10000/N-10070/N-10428/N-10596">
+                            <ns9:CNCode>010611</ns9:CNCode>
+                            <ns9:Description languageID="nl">primaten</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10000/N-10070/N-10428/N-10596/N-11615">
+                                <ns9:CNCode>01061100</ns9:CNCode>
+                                <ns9:Description languageID="nl">primaten</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10000/N-10070/N-10428/N-10597">
+                            <ns9:CNCode>010612</ns9:CNCode>
+                            <ns9:Description languageID="nl">walvissen, dolfijnen en bruinvissen (zoogdieren van de orde Cetacea); lamantijnen en doejongs (zoogdieren van de orde Sirenia); zeehonden, zeeleeuwen en walrussen (zoogdieren van de suborde Pinnipedia)</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10000/N-10070/N-10428/N-10597/N-11616">
+                                <ns9:CNCode>01061200</ns9:CNCode>
+                                <ns9:Description languageID="nl">walvissen, dolfijnen en bruinvissen (zoogdieren van de orde Cetacea); lamantijnen en doejongs (zoogdieren van de orde Sirenia); zeehonden, zeeleeuwen en walrussen (zoogdieren van de suborde Pinnipedia)</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10000/N-10070/N-10428/N-10598">
+                            <ns9:CNCode>010613</ns9:CNCode>
+                            <ns9:Description languageID="nl">kamelen en andere kameelachtigen (Camelidae)</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10000/N-10070/N-10428/N-10598/N-11617">
+                                <ns9:CNCode>01061300</ns9:CNCode>
+                                <ns9:Description languageID="nl">kamelen en andere kameelachtigen (Camelidae)</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10000/N-10070/N-10428/N-10599">
+                            <ns9:CNCode>010614</ns9:CNCode>
+                            <ns9:Description languageID="nl">konijnen en hazen</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10000/N-10070/N-10428/N-10599/N-11618">
+                                <ns9:CNCode>01061410</ns9:CNCode>
+                                <ns9:Description languageID="nl">tamme konijnen</ns9:Description>
+                            </ns9:Node>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10000/N-10070/N-10428/N-10599/N-11619">
+                                <ns9:CNCode>01061490</ns9:CNCode>
+                                <ns9:Description languageID="nl">andere dan  0106 14 10</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10000/N-10070/N-10428/N-10600">
+                            <ns9:CNCode>010619</ns9:CNCode>
+                            <ns9:Description languageID="nl">andere</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10000/N-10070/N-10428/N-10600/N-11620">
+                                <ns9:CNCode>01061900</ns9:CNCode>
+                                <ns9:Description languageID="nl">andere</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                    </ns9:Node>
+                </ns9:Node>
+            </ns9:Node>
+            <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002">
+                <ns9:CNCode>03</ns9:CNCode>
+                <ns9:Description languageID="nl">VIS, SCHAALDIEREN, WEEKDIEREN EN ANDERE ONGEWERVELDE WATERDIEREN</ns9:Description>
+                <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10081">
+                    <ns9:CNCode>0301</ns9:CNCode>
+                    <ns9:Description languageID="nl">Levende vis</ns9:Description>
+                    <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10081/N-10446">
+                        <ns9:Description languageID="nl">andere levende vis</ns9:Description>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10081/N-10446/N-10680">
+                            <ns9:CNCode>030191</ns9:CNCode>
+                            <ns9:Description languageID="nl">forel (Salmo trutta, Oncorhynchus mykiss, Oncorhynchus clarki, Oncorhynchus aguabonita, Oncorhynchus gilae, Oncorhynchus apache en Oncorhynchus chrysogaster)</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10081/N-10446/N-10680/N-11892">
+                                <ns9:CNCode>03019110</ns9:CNCode>
+                                <ns9:Description languageID="nl">van de soorten "Oncorhynchus apache" en "Oncorhynchus chrysogaster"</ns9:Description>
+                            </ns9:Node>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10081/N-10446/N-10680/N-11893">
+                                <ns9:CNCode>03019190</ns9:CNCode>
+                                <ns9:Description languageID="nl">van de soort Salmo trutta, Oncorhynchus mykiss, Oncorhynchus clarki, Oncorhynchus aguabonita, Oncorhynchus gilae</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10081/N-10446/N-10681">
+                            <ns9:CNCode>030192</ns9:CNCode>
+                            <ns9:Description languageID="nl">paling of aal (Anguilla spp.)</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10081/N-10446/N-10681/N-11895">
+                                <ns9:CNCode>03019210</ns9:CNCode>
+                                <ns9:Description languageID="nl">met een lengte van minder dan 12|cm</ns9:Description>
+                            </ns9:Node>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10081/N-10446/N-10681/N-11896">
+                                <ns9:CNCode>03019230</ns9:CNCode>
+                                <ns9:Description languageID="nl">met een lengte van 12 of meer, maar minder dan 20|cm</ns9:Description>
+                            </ns9:Node>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10081/N-10446/N-10681/N-11897">
+                                <ns9:CNCode>03019290</ns9:CNCode>
+                                <ns9:Description languageID="nl">met een lengte van 20|cm of meer</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10081/N-10446/N-10682">
+                            <ns9:CNCode>030193</ns9:CNCode>
+                            <ns9:Description languageID="nl">karper</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10081/N-10446/N-10682/N-11898">
+                                <ns9:CNCode>03019300</ns9:CNCode>
+                                <ns9:Description languageID="nl">karper (Cyprinus spp., Carassius spp., Ctenopharyngodon idellus, Hypophthalmichthys spp., Cirrhinus spp., Mylopharyngodon piceus, Catla catla, Labeo spp., Osteochilus hasselti, Leptobarbus hoeveni, Megalobrama spp.)</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10081/N-10446/N-10683">
+                            <ns9:CNCode>030194</ns9:CNCode>
+                            <ns9:Description languageID="nl">Atlantische en Pacifische blauwvintonijn (Thunnus thynnus, Thunnus orientalis)</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10081/N-10446/N-10683/N-11900">
+                                <ns9:CNCode>03019410</ns9:CNCode>
+                                <ns9:Description languageID="nl">gewone of blauwvintonijn (Thunnus thynnus)</ns9:Description>
+                            </ns9:Node>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10081/N-10446/N-10683/N-11901">
+                                <ns9:CNCode>03019490</ns9:CNCode>
+                                <ns9:Description languageID="nl">Pacifische blauwvintonijn (Thunnus orientalis)</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10081/N-10446/N-10684">
+                            <ns9:CNCode>030195</ns9:CNCode>
+                            <ns9:Description languageID="nl">zuidelijke blauwvintonijn (Thunnus maccoyii)</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10081/N-10446/N-10684/N-11902">
+                                <ns9:CNCode>03019500</ns9:CNCode>
+                                <ns9:Description languageID="nl">zuidelijke blauwvintonijn (Thunnus maccoyii)</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10081/N-10446/N-10685">
+                            <ns9:CNCode>030199</ns9:CNCode>
+                            <ns9:Description languageID="nl">andere</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10081/N-10446/N-10685/N-11903">
+                                <ns9:CNCode>03019911</ns9:CNCode>
+                                <ns9:Description languageID="nl">Pacifische zalm (Oncorhynchus nerka, Oncorhynchus gorbuscha, Oncorhynchus keta, Oncorhynchus tschawytscha, Oncorhynchus kisutch, Oncorhynchus masou en Oncorhynchus rhodurus), Atlantische zalm (Salmo salar) en Donauzalm (Hucho hucho)</ns9:Description>
+                            </ns9:Node>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10081/N-10446/N-10685/N-17740">
+                                <ns9:CNCode>03019917</ns9:CNCode>
+                                <ns9:Description languageID="nl">andere</ns9:Description>
+                            </ns9:Node>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10081/N-10446/N-10685/N-11907">
+                                <ns9:CNCode>03019985</ns9:CNCode>
+                                <ns9:Description languageID="nl">zeevis</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                    </ns9:Node>
+                    <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10081/N-10445">
+                        <ns9:Description languageID="nl">siervis</ns9:Description>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10081/N-10445/N-19996">
+                            <ns9:CNCode>030111</ns9:CNCode>
+                            <ns9:Description languageID="nl">zoetwatervis</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10081/N-10445/N-19996/N-11890">
+                                <ns9:CNCode>03011100</ns9:CNCode>
+                                <ns9:Description languageID="nl">zoetwatervis</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10081/N-10445/N-19997">
+                            <ns9:CNCode>030119</ns9:CNCode>
+                            <ns9:Description languageID="nl">andere dan 0301 11 00</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10081/N-10445/N-19997/N-11891">
+                                <ns9:CNCode>03011900</ns9:CNCode>
+                                <ns9:Description languageID="nl">andere dan 0301 11 00</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                    </ns9:Node>
+                </ns9:Node>
+                <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10086">
+                    <ns9:CNCode>0306</ns9:CNCode>
+                    <ns9:Description languageID="nl">Schaaldieren, ook indien ontdaan van de schaal, levend, vers, gekoeld,  bevroren, gedroogd, gezouten of gepekeld; gerookte schaaldieren, ook  indien ontdaan van de schaal, ook indien voor of  tijdens het roken  gekookt; schaaldieren in de schaal, gestoomd of  in water gekookt, ook  indien gekoeld, bevroren, gedroogd, gezouten of gepekeld:</ns9:Description>
+                    <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10086/N-17804">
+                        <ns9:CNCode>030631</ns9:CNCode>
+                        <ns9:Description languageID="nl">langoesten (Palinurus spp., Panulirus spp., Jasus spp.)</ns9:Description>
+                    </ns9:Node>
+                    <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10086/N-17805">
+                        <ns9:CNCode>030632</ns9:CNCode>
+                        <ns9:Description languageID="nl">zeekreeften (Homarus spp.)</ns9:Description>
+                        <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10086/N-17805/N-17810">
+                            <ns9:CNCode>03063210</ns9:CNCode>
+                            <ns9:Description languageID="nl">levende</ns9:Description>
+                        </ns9:Node>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10086/N-17805/N-20402">
+                            <ns9:Description languageID="nl">andere</ns9:Description>
+                        </ns9:Node>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10086/N-17805/N-20401">
+                            <ns9:Description languageID="nl">andere</ns9:Description>
+                        </ns9:Node>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10086/N-17805/N-20463">
+                            <ns9:Description languageID="nl">andere</ns9:Description>
+                        </ns9:Node>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10086/N-17805/N-20462">
+                            <ns9:Description languageID="nl">andere</ns9:Description>
+                        </ns9:Node>
+                    </ns9:Node>
+                    <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10086/N-17814">
+                        <ns9:CNCode>030633</ns9:CNCode>
+                        <ns9:Description languageID="nl">krabben</ns9:Description>
+                        <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10086/N-17814/N-17815">
+                            <ns9:CNCode>03063310</ns9:CNCode>
+                            <ns9:Description languageID="nl">Noordzeekrabben (Cancer pagurus)</ns9:Description>
+                        </ns9:Node>
+                        <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10086/N-17814/N-17816">
+                            <ns9:CNCode>03063390</ns9:CNCode>
+                            <ns9:Description languageID="nl">andere</ns9:Description>
+                        </ns9:Node>
+                    </ns9:Node>
+                    <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10086/N-17823">
+                        <ns9:CNCode>030636</ns9:CNCode>
+                        <ns9:Description languageID="nl">andere garnalen</ns9:Description>
+                        <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10086/N-17823/N-17826">
+                            <ns9:CNCode>03063690</ns9:CNCode>
+                            <ns9:Description languageID="nl">andere</ns9:Description>
+                        </ns9:Node>
+                    </ns9:Node>
+                    <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10086/N-17827">
+                        <ns9:CNCode>030639</ns9:CNCode>
+                        <ns9:Description languageID="nl">andere, daaronder begrepen meel, poeder en pellets, van schaaldieren, geschikt voor menselijke consumptie</ns9:Description>
+                        <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10086/N-17827/N-17828">
+                            <ns9:CNCode>03063910</ns9:CNCode>
+                            <ns9:Description languageID="nl">rivierkreeften</ns9:Description>
+                        </ns9:Node>
+                        <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10086/N-17827/N-17829">
+                            <ns9:CNCode>03063990</ns9:CNCode>
+                            <ns9:Description languageID="nl">andere</ns9:Description>
+                        </ns9:Node>
+                    </ns9:Node>
+                    <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10086/N-17849">
+                        <ns9:CNCode>030695</ns9:CNCode>
+                        <ns9:Description languageID="nl">garnalen</ns9:Description>
+                        <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10086/N-17849/N-17857">
+                            <ns9:CNCode>03069590</ns9:CNCode>
+                            <ns9:Description languageID="nl">andere</ns9:Description>
+                        </ns9:Node>
+                    </ns9:Node>
+                    <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10086/N-17840">
+                        <ns9:Description languageID="nl">andere</ns9:Description>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10086/N-17840/N-20025">
+                            <ns9:CNCode>030691</ns9:CNCode>
+                            <ns9:Description languageID="nl">langoesten (Palinurus spp., Panulirus spp., Jasus spp.)</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10086/N-17840/N-20025/N-17841">
+                                <ns9:CNCode>03069100</ns9:CNCode>
+                                <ns9:Description languageID="nl">langoesten (Palinurus spp., Panulirus spp., Jasus spp.)</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10086/N-17840/N-17845">
+                            <ns9:CNCode>030693</ns9:CNCode>
+                            <ns9:Description languageID="nl">krabben</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10086/N-17840/N-17845/N-17846">
+                                <ns9:CNCode>03069310</ns9:CNCode>
+                                <ns9:Description languageID="nl">Noordzeekrabben (Cancer pagurus)</ns9:Description>
+                            </ns9:Node>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10086/N-17840/N-17845/N-17847">
+                                <ns9:CNCode>03069390</ns9:CNCode>
+                                <ns9:Description languageID="nl">andere</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10086/N-17840/N-17858">
+                            <ns9:CNCode>030699</ns9:CNCode>
+                            <ns9:Description languageID="nl">andere, daaronder begrepen meel, poeder en pellets, van schaaldieren, geschikt voor menselijke consumptie</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10086/N-17840/N-17858/N-17859">
+                                <ns9:CNCode>03069910</ns9:CNCode>
+                                <ns9:Description languageID="nl">rivierkreeften</ns9:Description>
+                            </ns9:Node>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10086/N-17840/N-17858/N-17860">
+                                <ns9:CNCode>03069990</ns9:CNCode>
+                                <ns9:Description languageID="nl">andere</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                    </ns9:Node>
+                </ns9:Node>
+                <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10087">
+                    <ns9:CNCode>0307</ns9:CNCode>
+                    <ns9:Description languageID="nl">Weekdieren, ook indien ontdaan van de schelp, levend, vers, gekoeld,  bevroren, gedroogd, gezouten of gepekeld; gerookte weekdieren, ook  indien ontdaan van de schelp, ook indien voor of  tijdens het roken  gekookt:</ns9:Description>
+                    <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10087/N-20400">
+                        <ns9:CNCode>030760</ns9:CNCode>
+                        <ns9:Description languageID="nl">eetbare slakken, andere dan zeeslakken</ns9:Description>
+                    </ns9:Node>
+                    <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10087/N-10873">
+                        <ns9:CNCode>03076000</ns9:CNCode>
+                        <ns9:Description languageID="nl">eetbare slakken, andere dan zeeslakken</ns9:Description>
+                    </ns9:Node>
+                    <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10087/N-10477">
+                        <ns9:Description languageID="nl">achtarmige inktvissen (Octopus spp.):</ns9:Description>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10087/N-10477/N-10871">
+                            <ns9:CNCode>030751</ns9:CNCode>
+                            <ns9:Description languageID="nl">levend, vers of gekoeld</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10087/N-10477/N-10871/N-12565">
+                                <ns9:CNCode>03075100</ns9:CNCode>
+                                <ns9:Description languageID="nl">levend, vers of gekoeld</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                    </ns9:Node>
+                    <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10087/N-10480">
+                        <ns9:Description languageID="nl">andere, daaronder begrepen meel, poeder en pellets, geschikt voor menselijke consumptie</ns9:Description>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10087/N-10480/N-20028">
+                            <ns9:CNCode>030791</ns9:CNCode>
+                            <ns9:Description languageID="nl">levend, vers of gekoeld</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10087/N-10480/N-20028/N-10878">
+                                <ns9:CNCode>03079100</ns9:CNCode>
+                                <ns9:Description languageID="nl">levend, vers of gekoeld</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                    </ns9:Node>
+                    <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10087/N-10476">
+                        <ns9:Description languageID="nl">inktvissen (Sepia officinalis, Rossia macrosoma, Sepiola|spp.); pijlinktvissen (Ommastrephes|spp., Loligo|spp., Nototodarus|spp., Sepioteuthis|spp.)</ns9:Description>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10087/N-10476/N-17889">
+                            <ns9:CNCode>030742</ns9:CNCode>
+                            <ns9:Description languageID="nl">levend, vers of gekoeld</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10087/N-10476/N-17889/N-17890">
+                                <ns9:CNCode>03074210</ns9:CNCode>
+                                <ns9:Description languageID="nl">inktvissen (Sepia officinalis, Rossia macrosoma, Sepiola spp.)</ns9:Description>
+                            </ns9:Node>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10087/N-10476/N-17889/N-17891">
+                                <ns9:CNCode>03074220</ns9:CNCode>
+                                <ns9:Description languageID="nl">van het geslacht Loligo</ns9:Description>
+                            </ns9:Node>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10087/N-10476/N-17889/N-17892">
+                                <ns9:CNCode>03074230</ns9:CNCode>
+                                <ns9:Description languageID="nl">Pijlinktvissen (Ommastrephes spp., Nototodarus spp., Sepioteuthis spp.)</ns9:Description>
+                            </ns9:Node>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10087/N-10476/N-17889/N-17893">
+                                <ns9:CNCode>03074240</ns9:CNCode>
+                                <ns9:Description languageID="nl">grote pijlinktvis (Todarodes sagittatus)</ns9:Description>
+                            </ns9:Node>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10087/N-10476/N-17889/N-17894">
+                                <ns9:CNCode>03074290</ns9:CNCode>
+                                <ns9:Description languageID="nl">andere</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                    </ns9:Node>
+                    <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10087/N-26980">
+                        <ns9:Description languageID="nl">jakobsschelpen en andere weekdieren van de familie Pectinidae:</ns9:Description>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10087/N-26980/N-10865">
+                            <ns9:CNCode>030721</ns9:CNCode>
+                            <ns9:Description languageID="nl">levend, vers of gekoeld</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10087/N-26980/N-10865/N-26424">
+                                <ns9:CNCode>03072110</ns9:CNCode>
+                                <ns9:Description languageID="nl">jakobsschelpen en andere schelpdieren van de geslachten „Pecten”, „Chlamys” of „Placopecten”:</ns9:Description>
+                            </ns9:Node>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10087/N-26980/N-10865/N-26441">
+                                <ns9:CNCode>03072190</ns9:CNCode>
+                                <ns9:Description languageID="nl">andere</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                    </ns9:Node>
+                    <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10087/N-10475">
+                        <ns9:Description languageID="nl">mosselen (Mytilus spp., Perna spp.):</ns9:Description>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10087/N-10475/N-10867">
+                            <ns9:CNCode>030731</ns9:CNCode>
+                            <ns9:Description languageID="nl">levend, vers of gekoeld</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10087/N-10475/N-10867/N-12541">
+                                <ns9:CNCode>03073110</ns9:CNCode>
+                                <ns9:Description languageID="nl">van het geslacht "Mytilus"</ns9:Description>
+                            </ns9:Node>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10087/N-10475/N-10867/N-12542">
+                                <ns9:CNCode>03073190</ns9:CNCode>
+                                <ns9:Description languageID="nl">van het geslacht "Perna"</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                    </ns9:Node>
+                    <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10087/N-10473">
+                        <ns9:Description languageID="nl">oesters</ns9:Description>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10087/N-10473/N-10863">
+                            <ns9:CNCode>030711</ns9:CNCode>
+                            <ns9:Description languageID="nl">levend, vers of gekoeld</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10087/N-10473/N-10863/N-12533">
+                                <ns9:CNCode>03071110</ns9:CNCode>
+                                <ns9:Description languageID="nl">levende platte oesters (Ostrea spp.), wegende, in de schelp, niet meer dan 40|g per stuk</ns9:Description>
+                            </ns9:Node>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10087/N-10473/N-10863/N-12534">
+                                <ns9:CNCode>03071190</ns9:CNCode>
+                                <ns9:Description languageID="nl">andere dan 03071110</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                    </ns9:Node>
+                    <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10087/N-10478">
+                        <ns9:Description languageID="nl">tweekleppigen, kokkels en arkschelpen (de families „Arcidae”, „Arcticidae”, „Cardiidae”, „Donacidae”, „Hiatellidae”, „Mactridae”, „Mesodesmatidae”, „Myidae”, „Semelidae”, „Solecurtidae”, „Solenidae”, „Tridacnidae” en „Veneridae”)</ns9:Description>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10087/N-10478/N-10874">
+                            <ns9:CNCode>030771</ns9:CNCode>
+                            <ns9:Description languageID="nl">levend, vers of gekoeld</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10087/N-10478/N-10874/N-12572">
+                                <ns9:CNCode>03077100</ns9:CNCode>
+                                <ns9:Description languageID="nl">levend, vers of gekoeld</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                    </ns9:Node>
+                    <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10087/N-10479">
+                        <ns9:Description languageID="nl">zeeoren (Haliotis spp.) en strombushoorns (Strombus spp.)</ns9:Description>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10087/N-10479/N-10876">
+                            <ns9:CNCode>030781</ns9:CNCode>
+                            <ns9:Description languageID="nl">levende, verse of gekoelde zeeoren (Haliotis spp.)</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10087/N-10479/N-10876/N-12576">
+                                <ns9:CNCode>03078100</ns9:CNCode>
+                                <ns9:Description languageID="nl">levend, vers of gekoeld</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10087/N-10479/N-20033">
+                            <ns9:CNCode>030782</ns9:CNCode>
+                            <ns9:Description languageID="nl">levende, verse of gekoelde strombushoorns (Strombus spp.)</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10087/N-10479/N-20033/N-17987">
+                                <ns9:CNCode>03078200</ns9:CNCode>
+                                <ns9:Description languageID="nl">levende, verse of gekoelde strombushoorns (Strombus spp.)</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                    </ns9:Node>
+                </ns9:Node>
+                <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10088">
+                    <ns9:CNCode>0308</ns9:CNCode>
+                    <ns9:Description languageID="nl">Ongewervelde waterdieren, andere dan schaal- en weekdieren, levend,  vers, gekoeld, bevroren, gedroogd, gezouten of gepekeld; gerookte  ongewervelde waterdieren, andere dan schaal- en weekdieren, ook  indien voor of  tijdens het roken gekookt:</ns9:Description>
+                    <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10088/N-10880">
+                        <ns9:CNCode>030830</ns9:CNCode>
+                        <ns9:Description languageID="nl">kwallen (Rhopilema spp.)</ns9:Description>
+                        <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10088/N-10880/N-12603">
+                            <ns9:CNCode>03083010</ns9:CNCode>
+                            <ns9:Description languageID="nl">levend, vers of gekoeld</ns9:Description>
+                        </ns9:Node>
+                        <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10088/N-10880/N-20403">
+                            <ns9:CNCode>03083080</ns9:CNCode>
+                            <ns9:Description languageID="nl">andere</ns9:Description>
+                        </ns9:Node>
+                    </ns9:Node>
+                    <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10088/N-10881">
+                        <ns9:CNCode>030890</ns9:CNCode>
+                        <ns9:Description languageID="nl">andere</ns9:Description>
+                        <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10088/N-10881/N-12607">
+                            <ns9:CNCode>03089010</ns9:CNCode>
+                            <ns9:Description languageID="nl">levend, vers of gekoeld</ns9:Description>
+                        </ns9:Node>
+                    </ns9:Node>
+                    <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10088/N-10482">
+                        <ns9:Description languageID="nl">zee-egels (Strongylocentrotus spp., Paracentrotus lividus, Loxechinus albus, Echinus esculentus)</ns9:Description>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10088/N-10482/N-20041">
+                            <ns9:CNCode>030821</ns9:CNCode>
+                            <ns9:Description languageID="nl">levend, vers of gekoeld</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10088/N-10482/N-20041/N-12599">
+                                <ns9:CNCode>03082100</ns9:CNCode>
+                                <ns9:Description languageID="nl">levend, vers of gekoeld</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                    </ns9:Node>
+                    <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10088/N-10481">
+                        <ns9:Description languageID="nl">zeekomkommers (Stichopus japonicus, Holothurioidea)</ns9:Description>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10002/N-10088/N-10481/N-20044">
+                            <ns9:CNCode>030811</ns9:CNCode>
+                            <ns9:Description languageID="nl">levend, vers of gekoeld</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10002/N-10088/N-10481/N-20044/N-12595">
+                                <ns9:CNCode>03081100</ns9:CNCode>
+                                <ns9:Description languageID="nl">levend, vers of gekoeld</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                    </ns9:Node>
+                </ns9:Node>
+            </ns9:Node>
+            <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10003">
+                <ns9:CNCode>04</ns9:CNCode>
+                <ns9:Description languageID="nl">MELK EN ZUIVELPRODUCTEN; VOGELEIEREN; NATUURHONING; EETBARE PRODUCTEN VAN DIERLIJKE OORSPRONG, ELDERS GENOEMD NOCH ELDERS ONDER BEGREPEN</ns9:Description>
+                <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10003/N-10095">
+                    <ns9:CNCode>0407</ns9:CNCode>
+                    <ns9:Description languageID="nl">Vogeleieren in de schaal, vers, verduurzaamd of gekookt</ns9:Description>
+                    <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10003/N-10095/N-10484">
+                        <ns9:Description languageID="nl">broedeieren</ns9:Description>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10003/N-10095/N-10484/N-20048">
+                            <ns9:CNCode>040711</ns9:CNCode>
+                            <ns9:Description languageID="nl">van kippen</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10003/N-10095/N-10484/N-20048/N-12786">
+                                <ns9:CNCode>04071100</ns9:CNCode>
+                                <ns9:Description languageID="nl">van kippen</ns9:Description>
+                            </ns9:Node>
+                        </ns9:Node>
+                        <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10003/N-10095/N-10484/N-10903">
+                            <ns9:CNCode>040719</ns9:CNCode>
+                            <ns9:Description languageID="nl">andere</ns9:Description>
+                            <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10003/N-10095/N-10484/N-10903/N-12789">
+                                <ns9:CNCode>04071990</ns9:CNCode>
+                                <ns9:Description languageID="nl">andere dan  0407 11 00; 0407 19 11; 0407 19 19</ns9:Description>
+                            </ns9:Node>
+                            <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10003/N-10095/N-10484/N-10903/N-11523">
+                                <ns9:Description languageID="nl">van pluimvee, andere dan van kippen</ns9:Description>
+                                <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10003/N-10095/N-10484/N-10903/N-11523/N-12787">
+                                    <ns9:CNCode>04071911</ns9:CNCode>
+                                    <ns9:Description languageID="nl">van kalkoenen of van ganzen</ns9:Description>
+                                </ns9:Node>
+                                <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10003/N-10095/N-10484/N-10903/N-11523/N-12788">
+                                    <ns9:CNCode>04071919</ns9:CNCode>
+                                    <ns9:Description languageID="nl">andere dan  0407 19 11</ns9:Description>
+                                </ns9:Node>
+                            </ns9:Node>
+                        </ns9:Node>
+                    </ns9:Node>
+                </ns9:Node>
+            </ns9:Node>
+            <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10004">
+                <ns9:CNCode>05</ns9:CNCode>
+                <ns9:Description languageID="nl">ANDERE PRODUCTEN VAN DIERLIJKE OORSPRONG, ELDERS GENOEMD NOCH ELDERS ONDER BEGREPEN</ns9:Description>
+                <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10004/N-10107">
+                    <ns9:CNCode>0511</ns9:CNCode>
+                    <ns9:Description languageID="nl">Producten van dierlijke oorsprong, elders genoemd noch elders onder begrepen; dode dieren van de soorten bedoeld bij hoofdstuk 1|of 3, niet geschikt voor menselijke consumptie</ns9:Description>
+                    <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10004/N-10107/N-10925">
+                        <ns9:CNCode>051191</ns9:CNCode>
+                        <ns9:Description languageID="nl">producten van vis, van schaaldieren, van weekdieren of van andere ongewervelde waterdieren; dode dieren van de soorten bedoeld bij hoofdstuk 3</ns9:Description>
+                        <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10004/N-10107/N-10925/N-12821">
+                            <ns9:CNCode>05119190</ns9:CNCode>
+                            <ns9:Description languageID="nl">andere</ns9:Description>
+                        </ns9:Node>
+                    </ns9:Node>
+                </ns9:Node>
+            </ns9:Node>
+            <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10061">
+                <ns9:CNCode>95</ns9:CNCode>
+                <ns9:Description languageID="nl">SPEELGOED, SPELLEN, ARTIKELEN VOOR ONTSPANNING EN SPORTARTIKELEN; DELEN EN TOEBEHOREN DAARVAN</ns9:Description>
+                <ns9:Node allowedForSelection="false" type="nomenclature" path="R/N-10061/N-10421">
+                    <ns9:CNCode>9508</ns9:CNCode>
+                    <ns9:Description languageID="nl">Draaimolens, schommels, schiettenten en andere kermisattracties; reizende circussen en reizende dierenspelen; reizende theaters</ns9:Description>
+                    <ns9:Node allowedForSelection="true" type="nomenclature" path="R/N-10061/N-10421/N-11490">
+                        <ns9:CNCode>95081000</ns9:CNCode>
+                        <ns9:Description languageID="nl">reizende circussen en reizende dierenspelen</ns9:Description>
+                    </ns9:Node>
+                </ns9:Node>
+            </ns9:Node>
+        </ns12:GetClassificationTreeUpdatesResponse>
+    </S:Body>
+</S:Envelope>
