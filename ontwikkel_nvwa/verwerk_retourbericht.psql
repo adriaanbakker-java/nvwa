@@ -4,42 +4,68 @@
 declare
     v_response xmltype;
     v_commodities xmltype;
+    v_xml_tat           xmltype;
 
   v_ns_commodities varchar(400 char) :=
   'xmlns:ns10="http://ec.europa.eu/tracesnt/referencedata/nodeattribute/v1" xmlns:ns9="http://ec.europa.eu/tracesnt/referencedata/classificationtree/v1"';
 
   v_ns varchar(400 char) :=
   'xmlns:ns10="http://ec.europa.eu/tracesnt/referencedata/nodeattribute/v1" xmlns:ns9="http://ec.europa.eu/tracesnt/referencedata/classificationtree/v1"';
+
    cursor c_rqt(i_xml xmltype, i_ns varchar2)
     is
       select extract(value(rqt), '/ns9:Node/ns9:CNCode/text()', i_ns).getStringVal() gn_code
-             ,      extract(value(rqt), '/ns9:Node/ns9:Description/text()', i_ns).getStringVal() gn_code_meaning
+      ,      extract(value(rqt), '/ns9:Node/ns9:Description/text()', i_ns).getStringVal() gn_code_meaning
+      ,      extract(value(rqt), '/ns9:Node/Attribute[contains(@id,''AVAILABLE_CHED_DESCRIPTOR_COLUMNS'')]/ns9:DescriptorColumnValue', i_ns) kolommen
+--     ,      extract(VALUE(rqt), '/ns9:Node/Attribute[contains(@id,''PRODUCT_TYPE_POSSIBLE_VALUES'')]/ns9:EnumValue', i_ns) product_types
+--      ,      extract(VALUE(rqt), '/ns9:Node/Attribute[contains(@id,''PRODUCT_TEMPERATURE_POSSIBLE_VALUES'')]/ns9:EnumValue', i_ns) temperaturen
+--      ,      extract(VALUE(rqt), '/ns9:Node/Attribute[contains(@id,''CHED_CERTIFIED_AS_POSSIBLE_VALUES'')]/ns9:EnumValue', i_ns) gebruiksdoelen
+--      ,      extract(VALUE(rqt), '/ns9:Node/Attribute[contains(@id,''PACKAGE_TYPE_POSSIBLE_VALUES'')]/ns9:EnumValue', i_ns) verpakkingsvormen
+--      ,      extract(VALUE(rqt), '/ns9:Node/Attribute[contains(@id,''TAXON_POSSIBLE_VALUES'')]/ns9:TaxonReference', i_ns) species
       from table( xmlsequence(i_xml)) rqt;
+
+    CURSOR c_xml_tat(i_xml xmltype, i_ns VARCHAR2)
+    IS
+      SELECT extract(VALUE(rqt), '//ns9:DescriptorColumnValue/@id', i_ns).getStringVal() attribuut
+      ,      extract(VALUE(rqt), '//ns9:Cardinality/text()', i_ns).getStringVal() optie
+      FROM TABLE( xmlsequence(i_xml)) rqt
+    ;
+
 begin
-  delete from adriaan_log3 where id >
-    (select id from adriaan_log3 where logmsg = 'antw_update');
+  delete from adriaan_log4 where id >
+    (select id from adriaan_log4 where logmsg = 'antw_update');
 
    select
         vgc_xml.extractxml(xmltype(clobwaarde),
           '//ns12:GetClassificationTreeUpdatesResponse',
           'xmlns:ns12="http://ec.europa.eu/tracesnt/referencedata/v1"')
    into v_response
-   from adriaan_log3
+   from adriaan_log4
    where logmsg ='antw_update';
 
-   insert into adriaan_log3( logmsg, clobwaarde) values ('v_response', v_response.getClobval());
+   insert into adriaan_log4( logmsg, clobwaarde) values ('v_response', v_response.getClobval());
    v_commodities := vgc_xml.extractxml( v_response, '//ns9:Node', v_ns_commodities);
 
-   insert into  adriaan_log3 ( logmsg, clobwaarde)
+   insert into  adriaan_log4 ( logmsg, clobwaarde)
    values   ('v_commodities', v_commodities.getClobval());
 
-   FOR r_rqt IN c_rqt(v_commodities, v_ns)
-    LOOP
-      DECLARE
-        v_tge vgc_tnt_gn_codes%ROWTYPE;
-      BEGIN
+   for r_rqt in c_rqt(v_commodities, v_ns)
+    loop
+      declare
+        v_tge vgc_tnt_gn_codes%rowtype;
+      begin
         v_tge.gn_code          := r_rqt.gn_code;
-        insert into adriaan_log3(logmsg) values (nvl(r_rqt.gn_code, 'null'));
-      END;
-    END LOOP;
+        v_tge.gn_code_meaning  := replace(replace(replace(r_rqt.gn_code_meaning,chr(38)||'apos;',''''),chr(38)||'amp;','"'),chr(38)||'quot;','"');
+        v_xml_tat := r_rqt.kolommen;
+
+        insert into adriaan_log4(logmsg) values (nvl(r_rqt.gn_code, 'null') || ':' || v_tge.gn_code_meaning);
+
+         FOR r_xml_tat IN c_xml_tat(v_xml_tat, v_ns)
+        LOOP
+          insert into adriaan_log(logmsg) values
+          ('Loop attributen: ' || r_xml_tat.attribuut||'*'||r_xml_tat.optie);
+        END LOOP;
+      end;
+    end loop;
 end;
+
