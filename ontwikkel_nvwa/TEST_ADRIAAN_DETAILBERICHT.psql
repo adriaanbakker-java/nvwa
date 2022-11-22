@@ -1,0 +1,91 @@
+-----------
+-- testbericht GetClassificationTreeNodeDetailRequest aanmaken met gncode 03019190 voor cheda
+-------------
+procedure TEST_ADRIAAN_DETAILBERICHT
+is
+  l_ExpireTimestampString varchar(100);
+  l_CreateTimestampString varchar(100);
+  l_nonce_b64                  varchar2(24 char);
+  l_nonce_raw                  raw(100);
+  l_password_digest_b64        varchar2(100);
+  l_timestamp_char        varchar2(100);
+    v_username              varchar2(100);
+  v_password              varchar2(100);
+  v_timestamp             timestamp;
+  i_gn_code               varchar2(20);
+  i_retrieval_type        varchar2(20);
+begin
+   I_GN_CODE := '03019190';
+   i_retrieval_type := 'cheda';
+  -- insert into adriaan_log(logmsg) values (vgc$algemeen.get_appl_register('TNT_USERNAME_GN_CHEDP'));
+  -- commit;
+    -- cheda
+    -- v_username := vgc$algemeen.get_appl_register('TNT_USERNAME_GN_CHEDP');
+    -- v_password := vgc$algemeen.get_appl_register('TNT_PASSWORD_GN_CHEDP');
+   -- prod chedP v_username := 'n0039qig';
+    v_username := 'n0039qgz'; -- prod cheda
+   -- ontw  v_password := 'PAaYO4WUbMeUz5GknypuW69D7AsMLXJ0KAnJxiXY';
+   v_password := 'XNjTT57KtMtwQFHzj04k3Os9c3WevCT6oTFAm6vv'; -- prod cheda
+  v_timestamp := systimestamp;
+  l_timestamp_char      := to_char(systimestamp,'YYYY-MM-DD"T"HH24:MI:SS.FF3"Z"');
+  l_nonce_raw           := utl_i18n.string_to_raw(dbms_random.string('a',16),'utf8');
+  l_nonce_b64           := utl_i18n.raw_to_char(utl_encode.base64_encode(l_nonce_raw),'utf8');
+  l_ExpireTimestampString := to_char(v_timestamp,'YYYY-MM-DD"T"HH24:MI:SS.FF3"Z"');
+  l_CreateTimestampString := to_char(v_timestamp,'YYYY-MM-DD"T"HH24:MI:SS.FF3"Z"');
+  l_password_digest_b64 := utl_i18n.raw_to_char
+                             ( utl_encode.base64_encode
+                               ( dbms_crypto.hash
+                                 ( l_nonce_raw||utl_i18n.string_to_raw(l_timestamp_char||v_password,'utf8')
+                                 , dbms_crypto.hash_sh1
+                                 )
+                               )
+                             , 'utf8'
+                             );
+
+
+  insert into adriaan_log4(logmsg, clobwaarde)
+  select  'test maakbericht()',
+             xmlelement("soapenv:Envelope"
+      ,        xmlattributes ( 'http://schemas.xmlsoap.org/soap/envelope/' AS "xmlns:soapenv"
+                             , 'http://ec.europa.eu/sanco/tracesnt/base/v3'  AS "xmlns:v3"
+                             , 'http://ec.europa.eu/tracesnt/body/v3' as "xmlns:v31"
+                             , 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd'  AS "xmlns:oas"
+                             , 'http://ec.europa.eu/tracesnt/certificate/ched/submission/v01' as "xmlns:v01"
+                             , 'urn:un:unece:uncefact:data:standard:SPSCertificate:17' as "xmlns:rsm"
+                             , 'urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:21' AS "xmlns:ram"
+                             , 'urn:un:unece:uncefact:data:standard:UnqualifiedDataType:21' AS "xmlns:udt")
+     ,        xmlelement("soapenv:Header"
+      ,          xmlattributes( 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd' AS "xmlns:wsse"
+                              , 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd'  AS "xmlns:wsu")
+      ,          xmlelement("wsse:Security"
+      ,            xmlelement("wsse:UsernameToken"
+      ,            xmlattributes( 'UsernameToken-A5B8D7123A55CB6A75153751937547586' AS "wsu:Id" )
+      ,              xmlelement("wsse:Username", v_username)
+      ,              xmlelement("wsse:Password"
+      ,                xmlattributes( 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordDigest' AS "Type" )
+      ,                l_password_digest_b64)
+      ,              xmlelement("wsse:Nonce", l_nonce_b64)
+      ,              xmlelement("wsu:Created", l_CreateTimestampString)
+                   )
+      ,            xmlelement("wsu:Timestamp"
+      ,              xmlelement("wsu:Created", l_CreateTimestampString)
+      ,              xmlelement("wsu:Expires", l_ExpireTimestampString)
+                   )
+                 )
+      ,          xmlelement("v3:LanguageCode",'nl')
+      ,          xmlelement("v3:WebServiceClientId",'vgc-client')
+               )
+      ,        xmlelement("soapenv:Body"
+      ,          xmlattributes( 'http://schemas.xmlsoap.org/soap/envelope/' AS "xmlns:soapenv")
+      ,          xmlelement("v1:GetClassificationTreeNodeDetailRequest"
+      ,            xmlattributes( 'http://ec.europa.eu/tracesnt/referencedata/v1' AS "xmlns:v1")
+
+      ,            xmlelement("v1:TreeID", i_retrieval_type)
+      ,            xmlelement("v1:CNCode", i_gn_code)
+                 )
+               )
+             ).getClobval()
+      FROM dual
+    ;
+
+end;

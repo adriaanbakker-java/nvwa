@@ -1,0 +1,37 @@
+/*  VGC0511NT_UPDATE
+
+    Deze procedure doet een GetClassificationTreeUpdatesRequest om de lijst van gewijzigde gncodes te achterhalen
+    tussen een bepaald begin- en eindtijdstip dat wordt meegegeven
+    Bedoeling is om hiermee de load van het bijhouden gegevens van gncodes te beperken
+
+    De gncodes waarin wijzigingen hebben plaatsgevonden staan in het antwoord
+    (GetClassificationTreeUpdatesResponse).
+
+    Per gncode synchronisatie via procedure VGC11NT
+    De lijst van codes in het antwoordbericht worden doorlopen en worden gesynchroniseerd
+    door aanroep van procedure VGC11NT
+    (per gncode een GetClassificationTreeNodeDetailRequest respectievelijk
+    GetClassificationTreeNodeDetailResponse).
+
+    Parameters:
+
+    P_TYPE  -             kan zijn 'LNV',     (nonamimals, chedd)
+                                   'LPJ',     (animals, cheda)
+                                   'NPJ'      (animalproducts, chedp)
+                                   of anders  (fyto, chedpp)
+    P_STARTDT            begindatumtijd
+    P_EINDDT             einddatumtijd
+*/
+PROCEDURE VGC0511NT_UPDATE(
+          P_TYPE in VGC_COLLI.CLO_TYPE%type,
+          P_BEGINDT in date,
+          P_EINDDT in date) IS
+
+
+--    FUNCTION maak_tree_updates_request( i_retrieval_type in varchar2) RETURN clob is
+--    BEGIN
+--       null;
+--    END;
+BEGIN -- VGC0511NT_UPDATE
+    null;
+END;  -- VGC0511NT_UPDATE
