@@ -70,7 +70,7 @@ begin
                    )
       ,            xmlelement("wsu:Timestamp"
       ,              xmlelement("wsu:Created", l_CreateTimestampString)
-      ,              xmlelement("wsu:Expires", l_EindDTTimestampString)
+      ,              xmlelement("wsu:Expires", l_ExpireTimestampString)
                    )
                  )
                )
@@ -81,7 +81,7 @@ begin
       ,            xmlelement("v1:TreeID", i_retrieval_type)
       ,            xmlelement("v1:UpdateDateTimeRange"
       ,              xmlelement("v4:From", l_BeginDTTimestampString)
-      ,              xmlelement("v4:To", l_ExpireTimestampString)
+      ,              xmlelement("v4:To", l_EindDTTimestampString)
                    )
                  )
                )
