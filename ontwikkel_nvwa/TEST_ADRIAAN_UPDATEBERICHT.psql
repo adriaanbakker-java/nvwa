@@ -51,18 +51,21 @@ begin
       ,        xmlattributes ( 'http://schemas.xmlsoap.org/soap/envelope/' as "xmlns:soapenv"
       ,                'http://ec.europa.eu/sanco/tracesnt/base/v4' as "xmlns:v4"
       ,                'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd' as "xmlns:oas"
-      ,                'http://ec.europa.eu/tracesnt/referencedata/v1' as "xmlns:v1")
+      ,                'http://ec.europa.eu/tracesnt/referencedata/v1' as "xmlns:v1"
+      ,                'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd' as "xmlns:wsu")
       ,        xmlelement("soapenv:Header"
-      ,          xmlattributes( 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd' as "xmlns:wsse"
-                              , 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd'  as "xmlns:wsu")
-      ,          xmlelement("wsse:Security"
-      ,            xmlelement("wsse:UsernameToken"
+--      ,          xmlattributes( 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd' as "xmlns:wsse"
+--                              , 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd'  as "xmlns:wsu")
+      ,          xmlelement("v4:LanguageCode",'nl')
+      ,          xmlelement("v4:WebServiceClientId",'vgc-client')
+      ,          xmlelement("oas:Security"
+      ,            xmlelement("oas:UsernameToken"
       ,            xmlattributes( 'UsernameToken-A5B8D7123A55CB6A75153751937547586' as "wsu:Id" )
-      ,              xmlelement("wsse:Username", v_username)
-      ,              xmlelement("wsse:Password"
+      ,              xmlelement("oas:Username", v_username)
+      ,              xmlelement("oas:Password"
       ,                xmlattributes( 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordDigest' as "Type" )
       ,                l_password_digest_b64)
-      ,              xmlelement("wsse:Nonce", l_nonce_b64)
+      ,              xmlelement("oas:Nonce", l_nonce_b64)
       ,              xmlelement("wsu:Created", l_CreateTimestampString)
                    )
       ,            xmlelement("wsu:Timestamp"
@@ -70,8 +73,6 @@ begin
       ,              xmlelement("wsu:Expires", l_EindDTTimestampString)
                    )
                  )
-      ,          xmlelement("v4:LanguageCode",'nl')
-      ,          xmlelement("v4:WebServiceClientId",'vgc-client')
                )
       ,        xmlelement("soapenv:Body"
       ,          xmlattributes( 'http://schemas.xmlsoap.org/soap/envelope/' as "xmlns:soapenv")
