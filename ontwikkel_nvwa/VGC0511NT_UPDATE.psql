@@ -4,14 +4,9 @@
     tussen een bepaald begin- en eindtijdstip dat wordt meegegeven
     Bedoeling is om hiermee de load van het bijhouden gegevens van gncodes te beperken
 
-    De gncodes waarin wijzigingen hebben plaatsgevonden staan in het antwoord
-    (GetClassificationTreeUpdatesResponse).
-
-    Per gncode synchronisatie via procedure VGC11NT
-    De lijst van codes in het antwoordbericht worden doorlopen en worden gesynchroniseerd
-    door aanroep van procedure VGC11NT
-    (per gncode een GetClassificationTreeNodeDetailRequest respectievelijk
-    GetClassificationTreeNodeDetailResponse).
+    De gncodes waarin wijzigingen hebben plaatsgevonden staan in het antwoord (GetClassificationTreeUpdatesResponse).
+    Deze lijst van codes worden doorlopen en hun gegevens worden gesynchroniseerd door aanroep van
+    procedure VGC11NT
 
     Parameters:
 
@@ -22,16 +17,109 @@
     P_STARTDT            begindatumtijd
     P_EINDDT             einddatumtijd
 */
-PROCEDURE VGC0511NT_UPDATE(
-          P_TYPE in VGC_COLLI.CLO_TYPE%type,
-          P_BEGINDT in date,
-          P_EINDDT in date) IS
+-----------
+-- testbericht GetClassificationTreeUpdatesRequest aanmaken voor chedp
+--
+-------------
+PROCEDURE TEST_ADRIAAN_UPDATE IS
+    upd_req                 xmltype;
+    v_username              varchar2(100);
+    v_password              varchar2(100);
 
 
---    FUNCTION maak_tree_updates_request( i_retrieval_type in varchar2) RETURN clob is
---    BEGIN
---       null;
---    END;
-BEGIN -- VGC0511NT_UPDATE
-    null;
-END;  -- VGC0511NT_UPDATE
+  function maak_tree_updates_request (
+            p_retrieval_type in varchar2,   -- bijv 'chedp'
+            p_username in varchar2,
+            p_password in varchar2) RETURN xmltype is
+
+            l_ExpireTimestampString varchar(100);
+            l_CreateTimestampString varchar(100);
+            l_nonce_b64                  varchar2(24 char);
+            l_nonce_raw                  raw(100);
+            l_password_digest_b64        varchar2(100);
+            l_timestamp_char        varchar2(100);
+            v_timestamp             timestamp;
+
+
+            l_BeginDTTimestampString varchar(100);
+            l_EindDTTimestampString varchar(100);
+            resultval               xmltype;
+    begin
+            v_timestamp := systimestamp;
+            l_timestamp_char      := to_char(systimestamp,'YYYY-MM-DD"T"HH24:MI:SS.FF3"Z"');
+            l_nonce_raw           := utl_i18n.string_to_raw(dbms_random.string('a',16),'utf8');
+            l_nonce_b64           := utl_i18n.raw_to_char(utl_encode.base64_encode(l_nonce_raw),'utf8');
+            l_ExpireTimestampString := to_char(v_timestamp,'YYYY-MM-DD"T"HH24:MI:SS.FF3"Z"');
+            l_CreateTimestampString := to_char(v_timestamp,'YYYY-MM-DD"T"HH24:MI:SS.FF3"Z"');
+            l_password_digest_b64 := utl_i18n.raw_to_char
+                                 ( utl_encode.base64_encode
+                                   ( dbms_crypto.hash
+                                     ( l_nonce_raw||utl_i18n.string_to_raw(l_timestamp_char||v_password,'utf8')
+                                     , dbms_crypto.hash_sh1
+                                     )
+                                   )
+                                 , 'utf8'
+                                 );
+            l_BeginDTTimestampString := '2022-02-01T00:00:00.000+02:00';
+            l_EindDTTimestampString := '2022-03-01T00:00:00.000+02:00';
+
+
+        select
+             xmlelement("soapenv:Envelope"
+      ,        xmlattributes ( 'http://schemas.xmlsoap.org/soap/envelope/' as "xmlns:soapenv"
+      ,                'http://ec.europa.eu/sanco/tracesnt/base/v4' as "xmlns:v4"
+      ,                'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd' as "xmlns:oas"
+      ,                'http://ec.europa.eu/tracesnt/referencedata/v1' as "xmlns:v1"
+      ,                'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd' as "xmlns:wsu")
+      ,        xmlelement("soapenv:Header"
+--      ,          xmlattributes( 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd' as "xmlns:wsse"
+--                              , 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd'  as "xmlns:wsu")
+      ,          xmlelement("v4:LanguageCode",'nl')
+      ,          xmlelement("v4:WebServiceClientId",'vgc-client')
+      ,          xmlelement("oas:Security"
+      ,            xmlelement("oas:UsernameToken"
+      ,            xmlattributes( 'UsernameToken-A5B8D7123A55CB6A75153751937547586' as "wsu:Id" )
+      ,              xmlelement("oas:Username", v_username)
+      ,              xmlelement("oas:Password"
+      ,                xmlattributes( 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordDigest' as "Type" )
+      ,                l_password_digest_b64)
+      ,              xmlelement("oas:Nonce", l_nonce_b64)
+      ,              xmlelement("wsu:Created", l_CreateTimestampString)
+                   )
+      ,            xmlelement("wsu:Timestamp"
+      ,              xmlelement("wsu:Created", l_CreateTimestampString)
+      ,              xmlelement("wsu:Expires", l_ExpireTimestampString)
+                   )
+                 )
+               )
+      ,        xmlelement("soapenv:Body"
+      ,          xmlattributes( 'http://schemas.xmlsoap.org/soap/envelope/' as "xmlns:soapenv")
+      ,          xmlelement("v1:GetClassificationTreeUpdatesRequest"
+      ,            xmlattributes( 'http://ec.europa.eu/tracesnt/referencedata/v1' as "xmlns:v1")
+      ,            xmlelement("v1:TreeID", p_retrieval_type)
+      ,            xmlelement("v1:UpdateDateTimeRange"
+      ,              xmlelement("v4:From", l_BeginDTTimestampString)
+      ,              xmlelement("v4:To", l_EindDTTimestampString)
+                   )
+                 )
+               )
+             )
+              into resultval
+              from dual
+            ;
+            return resultval;
+    end;
+
+begin
+--            v_username := 'n0039qig';                                 -- prod chedp TNT_USERNAME_GN_CHEDP
+--            v_password := 'XgfgFFRhGIwrZh3yesGyDgpDwrZMW7ouDWa7dyyh'; -- prod chedp TNT_PASSWORD_GN_CHEDP
+    v_username := vgc$algemeen.get_appl_register('TNT_USERNAME_GN_CHEDP');
+    v_password := vgc$algemeen.get_appl_register('TNT_PASSWORD_GN_CHEDP');
+
+    upd_req :=  maak_tree_updates_request('chedp', v_username, v_password);
+
+    insert into adriaan_log4(logmsg, clobwaarde)
+    values  ('test updreq5', upd_req.getClobval());
+
+
+end;
