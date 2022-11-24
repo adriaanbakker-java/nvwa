@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v3="http://ec.europa.eu/sanco/tracesnt/base/v3" xmlns:v31="http://ec.europa.eu/tracesnt/body/v3" xmlns:oas="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v01="http://ec.europa.eu/tracesnt/certificate/ched/submission/v01" xmlns:rsm="urn:un:unece:uncefact:data:standard:SPSCertificate:17" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:21" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:21">
+    <soapenv:Header xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+        <wsse:Security>
+            <wsse:UsernameToken wsu:Id="UsernameToken-A5B8D7123A55CB6A75153751937547586">
+                <wsse:Username>n0039qig</wsse:Username>
+                <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordDigest">JeEQY2AL7rsmhDI33joi3mC4xpQ=</wsse:Password>
+                <wsse:Nonce>SGxTZWJtTEVTdU1hQ3F3Qw==</wsse:Nonce>
+                <wsu:Created>2022-11-24T11:23:35.081Z</wsu:Created>
+            </wsse:UsernameToken>
+            <wsu:Timestamp>
+                <wsu:Created>2022-11-24T11:23:35.081Z</wsu:Created>
+                <wsu:Expires>2022-11-24T11:26:35.000Z</wsu:Expires>
+            </wsu:Timestamp>
+        </wsse:Security>
+        <v3:LanguageCode>nl</v3:LanguageCode>
+        <v3:WebServiceClientId>vgc-client</v3:WebServiceClientId>
+    </soapenv:Header>
+    <soapenv:Body>
+        <v1:GetClassificationTreeNodeDetailRequest xmlns:v1="http://ec.europa.eu/tracesnt/referencedata/v1">
+            <v1:TreeID>chedp</v1:TreeID>
+            <v1:CNCode>02031190</v1:CNCode>
+        </v1:GetClassificationTreeNodeDetailRequest>
+    </soapenv:Body>
+</soapenv:Envelope>

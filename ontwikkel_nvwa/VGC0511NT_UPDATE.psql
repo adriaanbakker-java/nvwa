@@ -17,32 +17,41 @@
     P_STARTDT            begindatumtijd
     P_EINDDT             einddatumtijd
 */
------------
--- testbericht GetClassificationTreeUpdatesRequest aanmaken voor chedp
---
--------------
-PROCEDURE TEST_ADRIAAN_UPDATE IS
-    upd_req                 xmltype;
+procedure TEST_ADRIAAN_UPDATE is
+    upd_msg_xml                 xmltype;
     v_username              varchar2(100);
     v_password              varchar2(100);
+    v_objectnaam            vgc_batchlog.proces%type := g_package_name || '.VGC0511NT_UPDATE#1';
+    v_ws_naam               varchar2(100 char)   := 'retrieveReferenceData';
 
+    -- TODO v_retrieval_type moet parameter worden van de update procedure
+    v_retrieval_type        varchar2(5 char)     := 'chedp';
+     r_rqt                        vgc_requests%rowtype;
+     v_antwoord         xmltype;
 
   function maak_tree_updates_request (
             p_retrieval_type in varchar2,   -- bijv 'chedp'
             p_username in varchar2,
-            p_password in varchar2) RETURN xmltype is
+            p_password in varchar2,
+            p_startdatum in date,
+            p_einddatum in date) return xmltype is
+
+
+            -- TODO voorlopig zijn start en einddatum nog even "hard" gecodeerd
+            -- TODO dit moet via parameters start en einddatum
+            l_BeginDTTimestampString varchar(100) := '2022-02-01T00:00:00.000+02:00';
+            l_EindDTTimestampString varchar(100) := '2022-03-01T00:00:00.000+02:00';
 
             l_ExpireTimestampString varchar(100);
             l_CreateTimestampString varchar(100);
+
+
             l_nonce_b64                  varchar2(24 char);
             l_nonce_raw                  raw(100);
             l_password_digest_b64        varchar2(100);
             l_timestamp_char        varchar2(100);
             v_timestamp             timestamp;
 
-
-            l_BeginDTTimestampString varchar(100);
-            l_EindDTTimestampString varchar(100);
             resultval               xmltype;
     begin
             v_timestamp := systimestamp;
@@ -51,6 +60,8 @@ PROCEDURE TEST_ADRIAAN_UPDATE IS
             l_nonce_b64           := utl_i18n.raw_to_char(utl_encode.base64_encode(l_nonce_raw),'utf8');
             l_ExpireTimestampString := to_char(v_timestamp,'YYYY-MM-DD"T"HH24:MI:SS.FF3"Z"');
             l_CreateTimestampString := to_char(v_timestamp,'YYYY-MM-DD"T"HH24:MI:SS.FF3"Z"');
+            v_timestamp :=v_timestamp + 3/1440;
+            l_ExpireTimestampString := to_char(v_timestamp,'YYYY-MM-DD"T"HH24:MI:SS.FF3"Z"');
             l_password_digest_b64 := utl_i18n.raw_to_char
                                  ( utl_encode.base64_encode
                                    ( dbms_crypto.hash
@@ -60,8 +71,7 @@ PROCEDURE TEST_ADRIAAN_UPDATE IS
                                    )
                                  , 'utf8'
                                  );
-            l_BeginDTTimestampString := '2022-02-01T00:00:00.000+02:00';
-            l_EindDTTimestampString := '2022-03-01T00:00:00.000+02:00';
+
 
 
         select
@@ -108,18 +118,121 @@ PROCEDURE TEST_ADRIAAN_UPDATE IS
               from dual
             ;
             return resultval;
-    end;
+    end; -- maak_tree_updates_request
+
+ function verwerk (i_retrieval_type in varchar2)
+  return boolean
+  is
+        l_sysdate    date := sysdate;
+        l_user      varchar2(35) := user;
+        -- foutafhandeling
+        v_generalOperationResult  varchar2(200 char);
+        v_specificOperationResult varchar2(200 char);
+        -- tijdelijke variabelen voor verwerken XML
+        v_response          xmltype;
+        v_commodities       xmltype;
+        v_ns                varchar2(400 char) := 'xmlns:ns8="http://ec.europa.eu/tracesnt/referencedata/classificationtree/v1" xmlns:ns7="http://ec.europa.eu/tracesnt/referencedata/certificatemodel/v1" xmlns:ns9="http://ec.europa.eu/tracesnt/referencedata/nodeattribute/v1" xmlns:ns1="http://ec.europa.eu/tracesnt/referencedata/v1"';
+        -- Query voor uitlezen commodities uit response
+        cursor c_cmy(i_xml xmltype, i_ns varchar2)
+        is
+          select extract(value(rqt), '/ns8:Node/ns8:CNCode/text()',i_ns).getStringVal() gn_code
+          ,      extract(value(rqt), '/ns8:Node/ns8:Description/text()',i_ns).getStringVal() gn_code_meaning
+          ,      extract(value(rqt), '/ns8:Node/@path', i_ns).getStringVal() Pad
+          ,      decode(
+                   instr(
+                     ltrim(extract(value(rqt), '/ns8:Node/@path', i_ns).getStringVal(),'R/')
+          ,          '/'), 0, null
+          ,         substr(
+                      ltrim(extract(value(rqt), '/ns8:Node/@path', i_ns).getStringVal(),'R/')
+          ,           instr(
+                        ltrim(extract(value(rqt), '/ns8:Node/@path', i_ns).getStringVal(),'R/')
+          ,           '/',-1)-7,7)) pad_code_vader
+          ,      substr(ltrim(extract(value(rqt), '/ns8:Node/@path', i_ns).getStringVal(),'R/')
+          ,        instr(ltrim(extract(value(rqt), '/ns8:Node/@path', i_ns).getStringVal(),'R/'),'/',-1)+1,7) pad_code
+          ,      decode(extract(value(rqt), '/ns8:Node/@allowedForSelection', i_ns).getStringVal(),'true','E','G') Selecteerbaar
+          from table( xmlsequence(i_xml)) rqt
+        ;
+    begin
+      return true;
+    end; -- verwerk bericht
+
 
 begin
---            v_username := 'n0039qig';                                 -- prod chedp TNT_USERNAME_GN_CHEDP
---            v_password := 'XgfgFFRhGIwrZh3yesGyDgpDwrZMW7ouDWa7dyyh'; -- prod chedp TNT_PASSWORD_GN_CHEDP
-    v_username := vgc$algemeen.get_appl_register('TNT_USERNAME_GN_CHEDP');
-    v_password := vgc$algemeen.get_appl_register('TNT_PASSWORD_GN_CHEDP');
 
-    upd_req :=  maak_tree_updates_request('chedp', v_username, v_password);
+    delete from adriaan_log4 where id >= 1120;
+
+    -- bepaal username en password voor het bericht
+    v_username := vgc$algemeen.get_appl_register('TNT_USERNAME_GN_CODES_WS');
+    v_password := vgc$algemeen.get_appl_register('TNT_PASSWORD_GN_CODES_WS');
+
+      v_username := 'n0039qig';                                 -- prod chedp TNT_USERNAME_GN_CHEDP
+   v_password := 'XgfgFFRhGIwrZh3yesGyDgpDwrZMW7ouDWa7dyyh'; -- prod chedp TNT_PASSWORD_GN_CHEDP
+
+
+    insert into adriaan_log4(logmsg)
+    values  (v_username);
+
+    insert into adriaan_log4(logmsg)
+    values  (v_password);
+    commit;
+
+    -- bepaal de soort (chedp etc) en de periode om in te vullen in het bericht
+    -- bouw het bericht in upd_msg_xml
+    -- TODO op dit moment is soort nog hard gecodeerd en zijn start en einddatum nog hard gecodeerd
+    upd_msg_xml :=  maak_tree_updates_request(v_retrieval_type, v_username, v_password, null, null);
 
     insert into adriaan_log4(logmsg, clobwaarde)
-    values  ('test updreq5', upd_req.getClobval());
+    values  ('upd msg1', upd_msg_xml.getClobval());
+
+    r_rqt.webservice_bericht := upd_msg_xml.getClobVal;
+    escape_xml(r_rqt.webservice_bericht);
+    r_rqt.request_id             := null;
+    r_rqt.webservice_url         := vgc$algemeen.get_appl_register ('TNT_GN_CODES_WEBSERVICE');
+    r_rqt.bestemd_voor           := 'TNT';
+    r_rqt.webservice_logische_naam := 'VGC0501NT_UPDATE';
+    r_rqt.status := vgc_ws_requests.kp_in_uitvoering;
+    r_rqt.resultaat := v_retrieval_type;
 
 
+    -- doe het httprequest en log dit
+    begin
+        vgc_ws_requests_nt.maak_http_request (r_rqt);
+        vgc_ws_requests_nt.log_request(r_rqt);
+    exception
+        when others
+        then
+            vgc_blg.write_log('Fout in versturen request' , v_objectnaam, 'J', 5);
+            raise;
+    end;
+
+/* op ontw werkt het versturen van het request niet wegens autorisatieprobleem.
+-- volgende code is uitgecommentarieerd, in plaats daarvan wordt uit de adriaan_log4 tabel een
+-- antwoordbericht gehaald
+
+     -- indien fout bij aanroepen webservice geef foutmelding en stop verwerking
+    if r_rqt.webservice_returncode <> 200
+    then
+        vgc_blg.write_log('Webservice geeft http-code: ' || r_rqt.webservice_returncode, v_objectnaam, 'J', 5);
+        raise_application_error(-20000, 'VGC-00502 #1' || v_ws_naam ||': Webservice geeft HTTP-code: ' || r_rqt.webservice_returncode);
+    end if;
+*/
+    v_antwoord := xmltype(r_rqt.webservice_antwoord);
+
+    insert into adriaan_log4(logmsg, clobwaarde)
+    values  ('antwoord_updreq', v_antwoord.getClobval());
+
+
+--    select clobwaarde
+--    into v_antwoord
+--    from adriaan_log4
+--    where logmsg = 'antw_update';
+
+    -- verwerk response
+    --v_verwerking_klaar := verwerk (v_retrieval_type);
+
+    commit;
+
+    insert into adriaan_log4(logmsg)
+    values  ('klaar');
+    commit;
 end;

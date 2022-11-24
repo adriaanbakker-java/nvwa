@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+    <S:Header>
+        <Message xmlns="http://ec.europa.eu/sanco/tracesnt/message/v1" severity="debugging">
+            <ID>WS_REQUEST_ID</ID>
+            <Message>b3bccbe9-b33b-4889-ba3b-d3c9167fa0cf</Message>
+        </Message>
+    </S:Header>
+    <S:Body>
+        <ns0:Fault xmlns:ns0="http://schemas.xmlsoap.org/soap/envelope/"
+                   xmlns:ns1="http://www.w3.org/2003/05/soap-envelope">
+            <faultcode>ns0:Client</faultcode>
+            <faultstring>org.xml.sax.SAXException: cvc-datatype-valid.1.2.1: '' is not a valid value for 'dateTime'.
+                org.xml.sax.SAXParseException; cvc-datatype-valid.1.2.1: '' is not a valid value for 'dateTime'.
+            </faultstring>
+        </ns0:Fault>
+    </S:Body>
+</S:Envelope>
