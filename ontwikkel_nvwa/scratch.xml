@@ -1,0 +1,16 @@
+<ns12:GetClassificationTreeUpdatesResponse
+        xmlns:ns2="http://ec.europa.eu/sanco/tracesnt/base/v4"
+                                           xmlns:ns3="http://ec.europa.eu/sanco/tracesnt/error/v01"
+                                           xmlns:ns4="http://ec.europa.eu/sanco/tracesnt/message/v1"
+                                           xmlns:ns5="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+                                           xmlns:ns6="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
+                                           xmlns:ns7="http://ec.europa.eu/tracesnt/referencedata/certificatemodel/v1"
+                                           xmlns:ns8="http://ec.europa.eu/tracesnt/referencedata/classificationsection/v1"
+                                           xmlns:ns9="http://ec.europa.eu/tracesnt/referencedata/classificationtree/v1"
+                                           xmlns:ns10="http://ec.europa.eu/tracesnt/referencedata/nodeattribute/v1"
+                                           xmlns:ns11="http://ec.europa.eu/tracesnt/referencedata/laboratorytest/v1"
+                                           xmlns:ns12="http://ec.europa.eu/tracesnt/referencedata/v1"
+                                           xmlns:ns13="http://www.w3.org/2000/09/xmldsig#"
+                                           xmlns:ns14="http://ec.europa.eu/tracesnt/body/v3"
+
+        xmlns:ns15="urn:un:unece:uncefact:codelist:standard:ISO:ISO2AlphaLanguageCode:2006-10-27"/>

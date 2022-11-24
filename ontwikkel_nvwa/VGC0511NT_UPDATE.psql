@@ -40,7 +40,7 @@ procedure TEST_ADRIAAN_UPDATE is
             -- TODO voorlopig zijn start en einddatum nog even "hard" gecodeerd
             -- TODO dit moet via parameters start en einddatum
             l_BeginDTTimestampString varchar(100) := '2022-02-01T00:00:00.000+02:00';
-            l_EindDTTimestampString varchar(100) := '2022-03-01T00:00:00.000+02:00';
+            l_EindDTTimestampString varchar(100) := '2022-02-02T00:00:00.000+02:00';
 
             l_ExpireTimestampString varchar(100);
             l_CreateTimestampString varchar(100);
@@ -120,68 +120,77 @@ procedure TEST_ADRIAAN_UPDATE is
             return resultval;
     end; -- maak_tree_updates_request
 
- function verwerk (i_retrieval_type in varchar2)
-  return boolean
+  procedure verwerk_upd_req_antwoord (v_antwoord xmltype)
   is
-        l_sysdate    date := sysdate;
-        l_user      varchar2(35) := user;
-        -- foutafhandeling
-        v_generalOperationResult  varchar2(200 char);
-        v_specificOperationResult varchar2(200 char);
-        -- tijdelijke variabelen voor verwerken XML
-        v_response          xmltype;
-        v_commodities       xmltype;
-        v_ns                varchar2(400 char) := 'xmlns:ns8="http://ec.europa.eu/tracesnt/referencedata/classificationtree/v1" xmlns:ns7="http://ec.europa.eu/tracesnt/referencedata/certificatemodel/v1" xmlns:ns9="http://ec.europa.eu/tracesnt/referencedata/nodeattribute/v1" xmlns:ns1="http://ec.europa.eu/tracesnt/referencedata/v1"';
-        -- Query voor uitlezen commodities uit response
-        cursor c_cmy(i_xml xmltype, i_ns varchar2)
+    v_response xmltype;
+    v_commodities xmltype;
+
+    v_ns varchar(400 char) :=
+      'xmlns:ns10="http://ec.europa.eu/tracesnt/referencedata/nodeattribute/v1" xmlns:ns9="http://ec.europa.eu/tracesnt/referencedata/classificationtree/v1"';
+       cursor c_rqt(i_xml xmltype, i_ns varchar2)
         is
-          select extract(value(rqt), '/ns8:Node/ns8:CNCode/text()',i_ns).getStringVal() gn_code
-          ,      extract(value(rqt), '/ns8:Node/ns8:Description/text()',i_ns).getStringVal() gn_code_meaning
-          ,      extract(value(rqt), '/ns8:Node/@path', i_ns).getStringVal() Pad
-          ,      decode(
-                   instr(
-                     ltrim(extract(value(rqt), '/ns8:Node/@path', i_ns).getStringVal(),'R/')
-          ,          '/'), 0, null
-          ,         substr(
-                      ltrim(extract(value(rqt), '/ns8:Node/@path', i_ns).getStringVal(),'R/')
-          ,           instr(
-                        ltrim(extract(value(rqt), '/ns8:Node/@path', i_ns).getStringVal(),'R/')
-          ,           '/',-1)-7,7)) pad_code_vader
-          ,      substr(ltrim(extract(value(rqt), '/ns8:Node/@path', i_ns).getStringVal(),'R/')
-          ,        instr(ltrim(extract(value(rqt), '/ns8:Node/@path', i_ns).getStringVal(),'R/'),'/',-1)+1,7) pad_code
-          ,      decode(extract(value(rqt), '/ns8:Node/@allowedForSelection', i_ns).getStringVal(),'true','E','G') Selecteerbaar
-          from table( xmlsequence(i_xml)) rqt
-        ;
+          select extract(value(rqt), '/ns9:Node/ns9:CNCode/text()', i_ns).getStringVal() gn_code
+          ,      extract(value(rqt), '/ns9:Node/ns9:Description/text()', i_ns).getStringVal() gn_code_meaning
+          from table( xmlsequence(i_xml)) rqt;
+
+    TYPE t_gncode_array IS TABLE OF varchar(20)
+        INDEX BY PLS_INTEGER;
+    v_gncodearray  t_gncode_array;
+    v_gncodecount  integer := 0;
+
     begin
-      return true;
-    end; -- verwerk bericht
+       v_response :=
+            vgc_xml.extractxml(v_antwoord,
+              '//ns12:GetClassificationTreeUpdatesResponse',
+              'xmlns:ns12="http://ec.europa.eu/tracesnt/referencedata/v1"');
+
+
+       insert into adriaan_log( logmsg, clobwaarde) values (
+         'v_response:',
+         v_response.getClobval());
+
+       v_commodities := vgc_xml.extractxml( v_response, '//ns9:Node', v_ns);
+
+       insert into  adriaan_log ( logmsg, clobwaarde)
+       values   ('v_commodities:', v_commodities.getClobval());
+
+       for r_rqt in c_rqt(v_commodities, v_ns)
+          loop
+            declare
+              v_tge vgc_tnt_gn_codes%rowtype;
+            begin
+              v_tge.gn_code          := r_rqt.gn_code;
+              v_tge.gn_code_meaning  := replace(replace(replace(r_rqt.gn_code_meaning,chr(38)||'apos;',''''),chr(38)||'amp;','"'),chr(38)||'quot;','"');
+              if (gncode is not null) then
+                  if not(v_tge.gncode member of v_gncodearray) then
+                  insert into adriaan_log(gncode, logmsg)
+                     values (r_rqt.gn_code, v_tge.gn_code_meaning);
+                  else
+                     null;
+                  end if;
+              end if;
+
+            end;
+          end loop;
+
+    end; -- verwerk_upd_req_antwoord
 
 
 begin
 
-    delete from adriaan_log4 where id >= 1120;
+    delete from adriaan_log;
+    commit;
 
     -- bepaal username en password voor het bericht
     v_username := vgc$algemeen.get_appl_register('TNT_USERNAME_GN_CODES_WS');
     v_password := vgc$algemeen.get_appl_register('TNT_PASSWORD_GN_CODES_WS');
-
-      v_username := 'n0039qig';                                 -- prod chedp TNT_USERNAME_GN_CHEDP
-   v_password := 'XgfgFFRhGIwrZh3yesGyDgpDwrZMW7ouDWa7dyyh'; -- prod chedp TNT_PASSWORD_GN_CHEDP
-
-
-    insert into adriaan_log4(logmsg)
-    values  (v_username);
-
-    insert into adriaan_log4(logmsg)
-    values  (v_password);
-    commit;
 
     -- bepaal de soort (chedp etc) en de periode om in te vullen in het bericht
     -- bouw het bericht in upd_msg_xml
     -- TODO op dit moment is soort nog hard gecodeerd en zijn start en einddatum nog hard gecodeerd
     upd_msg_xml :=  maak_tree_updates_request(v_retrieval_type, v_username, v_password, null, null);
 
-    insert into adriaan_log4(logmsg, clobwaarde)
+    insert into adriaan_log(logmsg, clobwaarde)
     values  ('upd msg1', upd_msg_xml.getClobval());
 
     r_rqt.webservice_bericht := upd_msg_xml.getClobVal;
@@ -205,9 +214,7 @@ begin
             raise;
     end;
 
-/* op ontw werkt het versturen van het request niet wegens autorisatieprobleem.
--- volgende code is uitgecommentarieerd, in plaats daarvan wordt uit de adriaan_log4 tabel een
--- antwoordbericht gehaald
+
 
      -- indien fout bij aanroepen webservice geef foutmelding en stop verwerking
     if r_rqt.webservice_returncode <> 200
@@ -215,24 +222,16 @@ begin
         vgc_blg.write_log('Webservice geeft http-code: ' || r_rqt.webservice_returncode, v_objectnaam, 'J', 5);
         raise_application_error(-20000, 'VGC-00502 #1' || v_ws_naam ||': Webservice geeft HTTP-code: ' || r_rqt.webservice_returncode);
     end if;
-*/
+
     v_antwoord := xmltype(r_rqt.webservice_antwoord);
 
-    insert into adriaan_log4(logmsg, clobwaarde)
+    insert into adriaan_log(logmsg, clobwaarde)
     values  ('antwoord_updreq', v_antwoord.getClobval());
 
-
---    select clobwaarde
---    into v_antwoord
---    from adriaan_log4
---    where logmsg = 'antw_update';
-
     -- verwerk response
-    --v_verwerking_klaar := verwerk (v_retrieval_type);
+    verwerk_upd_req_antwoord (v_antwoord);
 
-    commit;
-
-    insert into adriaan_log4(logmsg)
-    values  ('klaar');
+    insert into adriaan_log(logmsg)
+    values  ('klaar met verwerken upd req');
     commit;
 end;
