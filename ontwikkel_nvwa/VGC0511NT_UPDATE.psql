@@ -1,5 +1,4 @@
 
-
 /*  VGC0511NT_UPDATE
 
     Deze procedure doet een GetClassificationTreeUpdatesRequest om de lijst van gewijzigde gncodes te achterhalen
@@ -180,9 +179,16 @@ procedure TEST_ADRIAAN_UPDATE (p_startdatum date, p_einddatum date) is
 
                             v_gncodecount := v_gncodecount + 1;
                             v_gncodearray (v_gncodecount) := v_tge.gn_code;
+                            if (r_rqt.gn_code = '03039190') then
+                              insert into adriaan_log(gncode, logmsg)
+                               values (r_rqt.gn_code, 'ophalen via VGC0511NT:' || v_tge.gn_code_meaning);
+                               commit;
+                               VGC0511nt(r_rqt.gn_code, 'NPJ');  -- TODO hard gecodeerd NPJ is chedp is animalproducts
+                            end if;
                       else
                             insert into adriaan_log(gncode, logmsg)
                             values (r_rqt.gn_code, 'al gehad:' || v_tge.gn_code_meaning);
+                            commit;
                       end if;
                   exception
                     when others then
@@ -260,4 +266,3 @@ begin
     values  ('klaar met verwerken upd req');
     commit;
 end;
-
