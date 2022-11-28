@@ -18,17 +18,20 @@
     P_STARTDT            begindatumtijd
     P_EINDDT             einddatumtijd
 */
-procedure TEST_ADRIAAN_UPDATE (p_startdatum date, p_einddatum date) is
+procedure VGC0511NT_UPDATE (
+   p_retrieval_type IN VGC_COLLI.CLO_TYPE%TYPE,
+   p_startdatum date,
+   p_einddatum date) is
+
     upd_msg_xml                 xmltype;
     v_username              varchar2(100);
     v_password              varchar2(100);
     v_objectnaam            vgc_batchlog.proces%type := g_package_name || '.VGC0511NT_UPDATE#1';
     v_ws_naam               varchar2(100 char)   := 'retrieveReferenceData';
 
-    -- TODO v_retrieval_type moet parameter worden van de update procedure
-    v_retrieval_type        varchar2(5 char)     := 'chedp';
-     r_rqt                        vgc_requests%rowtype;
-     v_antwoord         xmltype;
+    v_retrieval_type        varchar2(10 char);
+    r_rqt                   vgc_requests%rowtype;
+    v_antwoord              xmltype;
 
   function maak_tree_updates_request (
             p_retrieval_type in varchar2,   -- bijv 'chedp'
@@ -179,12 +182,12 @@ procedure TEST_ADRIAAN_UPDATE (p_startdatum date, p_einddatum date) is
 
                             v_gncodecount := v_gncodecount + 1;
                             v_gncodearray (v_gncodecount) := v_tge.gn_code;
-                            if (r_rqt.gn_code = '03039190') then
+
                               insert into adriaan_log(gncode, logmsg)
                                values (r_rqt.gn_code, 'ophalen via VGC0511NT:' || v_tge.gn_code_meaning);
                                commit;
-                               VGC0511nt(r_rqt.gn_code, 'NPJ');  -- TODO hard gecodeerd NPJ is chedp is animalproducts
-                            end if;
+                               VGC0511nt(r_rqt.gn_code, p_retrieval_type);
+
                       else
                             insert into adriaan_log(gncode, logmsg)
                             values (r_rqt.gn_code, 'al gehad:' || v_tge.gn_code_meaning);
@@ -206,8 +209,25 @@ procedure TEST_ADRIAAN_UPDATE (p_startdatum date, p_einddatum date) is
 
 
 begin
-
     delete from adriaan_log;
+    commit;
+
+     -- bepaal het retrieval_type voor het bericht vanuit de parameter p_retrieval_type
+     v_retrieval_type := 'chedpp';  -- default
+     if p_retrieval_type = 'LNV' then
+       v_retrieval_type := 'chedd'; -- LNV
+     end if;
+     if p_retrieval_type = 'LPJ' then
+       v_retrieval_type := 'cheda'; -- LPJ
+     end if;
+     if p_retrieval_type = 'NPJ' then
+       v_retrieval_type := 'chedp'; -- NPJ
+     end if;
+
+    insert into adriaan_log(logmsg)
+    values  ('VGC0511NT_UPDATE update gncodes ' || p_retrieval_type || ' (' || v_retrieval_type
+             || ') van ' || to_char(p_startdatum, 'DD-MM-YYYY')
+             || '  tm  ' || to_char(p_einddatum, 'DD-MM-YYYY') );
     commit;
 
     -- bepaal username en password voor het bericht
@@ -216,7 +236,6 @@ begin
 
     -- bepaal de soort (chedp etc) en de periode om in te vullen in het bericht
     -- bouw het bericht in upd_msg_xml
-    -- TODO op dit moment is soort nog hard gecodeerd en zijn start en einddatum nog hard gecodeerd
     upd_msg_xml :=  maak_tree_updates_request(v_retrieval_type, v_username, v_password);
 
     insert into adriaan_log(logmsg, clobwaarde)
