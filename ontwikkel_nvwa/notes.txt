@@ -1,0 +1,5 @@
+TO_DATE('03.12.2004:10:34:24','DD.MM.YYYY:HH24:MI:SS')
+
+https://www.akadia.com/services/ora_date_time.html
+
+

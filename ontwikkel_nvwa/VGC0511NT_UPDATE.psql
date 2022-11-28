@@ -1,4 +1,5 @@
 
+
 /*  VGC0511NT_UPDATE
 
     Deze procedure doet een GetClassificationTreeUpdatesRequest om de lijst van gewijzigde gncodes te achterhalen
@@ -18,7 +19,7 @@
     P_STARTDT            begindatumtijd
     P_EINDDT             einddatumtijd
 */
-procedure TEST_ADRIAAN_UPDATE is
+procedure TEST_ADRIAAN_UPDATE (p_startdatum date, p_einddatum date) is
     upd_msg_xml                 xmltype;
     v_username              varchar2(100);
     v_password              varchar2(100);
@@ -33,15 +34,10 @@ procedure TEST_ADRIAAN_UPDATE is
   function maak_tree_updates_request (
             p_retrieval_type in varchar2,   -- bijv 'chedp'
             p_username in varchar2,
-            p_password in varchar2,
-            p_startdatum in date,
-            p_einddatum in date) return xmltype is
+            p_password in varchar2) return xmltype is
 
-
-            -- TODO voorlopig zijn start en einddatum nog even "hard" gecodeerd
-            -- TODO dit moet via parameters start en einddatum
-            l_BeginDTTimestampString varchar(100) := '2022-02-01T00:00:00.000+02:00';
-            l_EindDTTimestampString varchar(100) := '2022-02-02T00:00:00.000+02:00';
+            l_BeginDTTimestampString varchar(100);
+            l_EindDTTimestampString varchar(100);
 
             l_ExpireTimestampString varchar(100);
             l_CreateTimestampString varchar(100);
@@ -55,6 +51,16 @@ procedure TEST_ADRIAAN_UPDATE is
 
             resultval               xmltype;
     begin
+
+            -- Laat de startdatumtijd en einddatumtijd beginnen respectievelijk starten op 02:00 's nachts
+            -- op de meegegeven datums
+
+            -- correcte formaat moet zijn 2022-02-01T00:00:00.000+02:00
+
+            l_BeginDTTimestampString :=  to_char(p_startdatum, 'YYYY-MM-DD')|| 'T00:00:00.000+02:00';
+            l_EindDTTimestampString  :=  to_char(p_einddatum,  'YYYY-MM-DD')|| 'T00:00:00.000+02:00';
+
+
             v_timestamp := systimestamp;
             l_timestamp_char      := to_char(systimestamp,'YYYY-MM-DD"T"HH24:MI:SS.FF3"Z"');
             l_nonce_raw           := utl_i18n.string_to_raw(dbms_random.string('a',16),'utf8');
@@ -134,8 +140,8 @@ procedure TEST_ADRIAAN_UPDATE is
           ,      extract(value(rqt), '/ns9:Node/ns9:Description/text()', i_ns).getStringVal() gn_code_meaning
           from table( xmlsequence(i_xml)) rqt;
 
-    TYPE t_gncode_array IS TABLE OF varchar(20)
-        INDEX BY PLS_INTEGER;
+    type t_gncode_array is table of varchar(20)
+        index by pls_integer;
     v_gncodearray  t_gncode_array;
     v_gncodecount  integer := 0;
 
@@ -160,21 +166,31 @@ procedure TEST_ADRIAAN_UPDATE is
           loop
             declare
               v_tge vgc_tnt_gn_codes%rowtype;
+              v_errcode number;
+              v_errm varchar(64);
             begin
               v_tge.gn_code          := r_rqt.gn_code;
               v_tge.gn_code_meaning  := replace(replace(replace(r_rqt.gn_code_meaning,chr(38)||'apos;',''''),chr(38)||'amp;','"'),chr(38)||'quot;','"');
               if (v_tge.gn_code is not null) then
-                  if not(v_gncodearray.exists(v_tge.gn_code)) then
-                        insert into adriaan_log(gncode, logmsg)
-                        values (r_rqt.gn_code, v_tge.gn_code_meaning);
+                  begin
+                      if not(v_gncodearray.exists(v_tge.gn_code)) then
+                            insert into adriaan_log(gncode, logmsg)
+                            values (r_rqt.gn_code, v_tge.gn_code_meaning);
 
 
-                        v_gncodecount := v_gncodecount + 1;
-                        v_gncodearray (v_gncodecount) := v_tge.gn_code;
-                  else
-                        insert into adriaan_log(gncode, logmsg)
-                        values (r_rqt.gn_code, 'al gehad:' || v_tge.gn_code_meaning);
-                  end if;
+                            v_gncodecount := v_gncodecount + 1;
+                            v_gncodearray (v_gncodecount) := v_tge.gn_code;
+                      else
+                            insert into adriaan_log(gncode, logmsg)
+                            values (r_rqt.gn_code, 'al gehad:' || v_tge.gn_code_meaning);
+                      end if;
+                  exception
+                    when others then
+                      v_errcode := sqlcode;
+                      v_errm := substr(sqlerrm, 1, 64);
+                      insert into adriaan_log(logmsg)
+                            values ('Error code ' || v_errcode || ': ' || v_errm);
+                  end;
               end if;
 
             end;
@@ -195,10 +211,11 @@ begin
     -- bepaal de soort (chedp etc) en de periode om in te vullen in het bericht
     -- bouw het bericht in upd_msg_xml
     -- TODO op dit moment is soort nog hard gecodeerd en zijn start en einddatum nog hard gecodeerd
-    upd_msg_xml :=  maak_tree_updates_request(v_retrieval_type, v_username, v_password, null, null);
+    upd_msg_xml :=  maak_tree_updates_request(v_retrieval_type, v_username, v_password);
 
     insert into adriaan_log(logmsg, clobwaarde)
     values  ('upd msg1', upd_msg_xml.getClobval());
+    commit;
 
     r_rqt.webservice_bericht := upd_msg_xml.getClobVal;
     escape_xml(r_rqt.webservice_bericht);
@@ -234,6 +251,7 @@ begin
 
     insert into adriaan_log(logmsg, clobwaarde)
     values  ('antwoord_updreq', v_antwoord.getClobval());
+    commit;
 
     -- verwerk response
     verwerk_upd_req_antwoord (v_antwoord);
@@ -242,3 +260,4 @@ begin
     values  ('klaar met verwerken upd req');
     commit;
 end;
+

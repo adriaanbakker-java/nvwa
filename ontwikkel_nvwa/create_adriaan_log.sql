@@ -2,7 +2,8 @@
 CREATE TABLE adriaan_log (
   ID           NUMBER(10)    NOT NULL,
   logmsg  VARCHAR2(4000)  NOT NULL,
-  clobwaarde);
+  gncode varchar2(20),
+  clobwaarde  clob);
 
 
 ALTER TABLE adriaan_log ADD (
