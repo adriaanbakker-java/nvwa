@@ -1,13 +1,16 @@
 
 /*  VGC0511NT_UPDATE
 
-    Deze procedure doet een GetClassificationTreeUpdatesRequest om de lijst van gewijzigde gncodes te achterhalen
-    tussen een bepaald begin- en eindtijdstip dat wordt meegegeven
-    Bedoeling is om hiermee de load van het bijhouden gegevens van gncodes te beperken
 
-    De gncodes waarin wijzigingen hebben plaatsgevonden staan in het antwoord (GetClassificationTreeUpdatesResponse).
+    Deze procedure werkt de gncodes binnen een opgegeven periode alleen bij voor daadwerkelijk gewijzigde gnccodes.
+    Doel is om daarmee de load van het bijwerken van gncodes zodanig te verlichten dat de gncodes op dagelijkse basis
+    geheel up to date zullen zijn.
+
+
+    Er wordt een GetClassificationTreeUpdatesRequest bericht samengesteld om de lijst van gewijzigde gncodes te achterhalen
+    tussen een bepaald begin- en eindtijdstip dat wordt meegegeven
     Deze lijst van codes worden doorlopen en hun gegevens worden gesynchroniseerd door aanroep van
-    procedure VGC11NT
+    procedure VGC11NT en doet na iedere aanroep een commit.
 
     Parameters:
 
@@ -154,14 +157,7 @@ procedure VGC0511NT_UPDATE (
               'xmlns:ns12="http://ec.europa.eu/tracesnt/referencedata/v1"');
 
 
-       insert into adriaan_log( logmsg, clobwaarde) values (
-         'v_response:',
-         v_response.getClobval());
-
        v_commodities := vgc_xml.extractxml( v_response, '//ns9:Node', v_ns);
-
-       insert into  adriaan_log ( logmsg, clobwaarde)
-       values   ('v_commodities:', v_commodities.getClobval());
 
 
        for r_rqt in c_rqt(v_commodities, v_ns)
@@ -176,29 +172,16 @@ procedure VGC0511NT_UPDATE (
               if (v_tge.gn_code is not null) then
                   begin
                       if not(v_gncodearray.exists(v_tge.gn_code)) then
-                            insert into adriaan_log(gncode, logmsg)
-                            values (r_rqt.gn_code, v_tge.gn_code_meaning);
-
-
                             v_gncodecount := v_gncodecount + 1;
                             v_gncodearray (v_gncodecount) := v_tge.gn_code;
-
-                              insert into adriaan_log(gncode, logmsg)
-                               values (r_rqt.gn_code, 'ophalen via VGC0511NT:' || v_tge.gn_code_meaning);
-                               commit;
-                               VGC0511nt(r_rqt.gn_code, p_retrieval_type);
-
-                      else
-                            insert into adriaan_log(gncode, logmsg)
-                            values (r_rqt.gn_code, 'al gehad:' || v_tge.gn_code_meaning);
+                            VGC0511nt(r_rqt.gn_code, p_retrieval_type);
                             commit;
                       end if;
                   exception
                     when others then
                       v_errcode := sqlcode;
                       v_errm := substr(sqlerrm, 1, 64);
-                      insert into adriaan_log(logmsg)
-                            values ('Error code ' || v_errcode || ': ' || v_errm);
+                      vgc_blg.write_log('Fout bij verwerken gncode ' || v_errcode || ' ' || v_errm , v_objectnaam, 'J', 5);
                   end;
               end if;
 
@@ -209,9 +192,6 @@ procedure VGC0511NT_UPDATE (
 
 
 begin
-    delete from adriaan_log;
-    commit;
-
      -- bepaal het retrieval_type voor het bericht vanuit de parameter p_retrieval_type
      v_retrieval_type := 'chedpp';  -- default
      if p_retrieval_type = 'LNV' then
@@ -224,12 +204,6 @@ begin
        v_retrieval_type := 'chedp'; -- NPJ
      end if;
 
-    insert into adriaan_log(logmsg)
-    values  ('VGC0511NT_UPDATE update gncodes ' || p_retrieval_type || ' (' || v_retrieval_type
-             || ') van ' || to_char(p_startdatum, 'DD-MM-YYYY')
-             || '  tm  ' || to_char(p_einddatum, 'DD-MM-YYYY') );
-    commit;
-
     -- bepaal username en password voor het bericht
     v_username := vgc$algemeen.get_appl_register('TNT_USERNAME_GN_CODES_WS');
     v_password := vgc$algemeen.get_appl_register('TNT_PASSWORD_GN_CODES_WS');
@@ -238,9 +212,6 @@ begin
     -- bouw het bericht in upd_msg_xml
     upd_msg_xml :=  maak_tree_updates_request(v_retrieval_type, v_username, v_password);
 
-    insert into adriaan_log(logmsg, clobwaarde)
-    values  ('upd msg1', upd_msg_xml.getClobval());
-    commit;
 
     r_rqt.webservice_bericht := upd_msg_xml.getClobVal;
     escape_xml(r_rqt.webservice_bericht);
@@ -274,14 +245,8 @@ begin
 
     v_antwoord := xmltype(r_rqt.webservice_antwoord);
 
-    insert into adriaan_log(logmsg, clobwaarde)
-    values  ('antwoord_updreq', v_antwoord.getClobval());
-    commit;
 
-    -- verwerk response
+    -- verwerk response met de gevonden gncodes
     verwerk_upd_req_antwoord (v_antwoord);
 
-    insert into adriaan_log(logmsg)
-    values  ('klaar met verwerken upd req');
-    commit;
 end;
